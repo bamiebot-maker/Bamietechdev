@@ -128,7 +128,7 @@
                 description: "SpooVault secures critical documents for everyday control while you're alive, with guardian-governed emergency and inheritance release when needed.",
                 status: 'live',
                 track: 'Document Security',
-                imageUrl: 'img/projects/spoovault.jpg',
+                imageUrl: 'img/projects/spoovault.png',
                 liveUrl: 'https://spoolvault.web.app',
                 repoUrl: 'https://github.com/bamiebot-maker/spoovault',
                 tags: ['Security', 'Document Vault', 'Web App']
