@@ -1,5 +1,5 @@
 ﻿(() => {
-    const STORAGE_KEY = 'bamietech_portfolio_content_v2';
+    const STORAGE_KEY = 'bamietech_portfolio_content_v3';
 
     const DEFAULT_CONTENT = {
         profile: {
@@ -150,7 +150,7 @@
                 description: 'AboVert is a smart plant-health app that instantly scans plants to detect existing diseases and predict potential viral infections. It helps farmers and gardeners identify problems early and protect plants before damage spreads.',
                 status: 'live',
                 track: 'AgriTech AI',
-                imageUrl: 'img/projects/abovert.jpg',
+                imageUrl: 'img/projects/abovert.png',
                 liveUrl: 'https://abovert.web.app',
                 repoUrl: 'https://github.com/bamiebot-maker/AboVert',
                 tags: ['Plant Health', 'Disease Detection', 'AI']
@@ -161,7 +161,7 @@
                 description: 'Campus navigator map with handouts and essential resources for students.',
                 status: 'live',
                 track: 'Campus Navigation',
-                imageUrl: 'img/projects/mynavio.jpg',
+                imageUrl: 'img/projects/mynavio.png',
                 liveUrl: 'https://mynavio.web.app',
                 repoUrl: 'https://github.com/bamiebot-maker/myfudnavio',
                 tags: ['Campus Map', 'Resources', 'Student Tools']
@@ -172,7 +172,7 @@
                 description: 'Cognitivia is a frontend-only web app that turns notes into flashcards and quizzes, runs study sessions, and tracks progress over time with local persistence.',
                 status: 'live',
                 track: 'EdTech',
-                imageUrl: 'img/projects/cognitivia.jpg',
+                imageUrl: 'img/projects/cognitivia.png',
                 liveUrl: 'https://cognitivia.web.app',
                 repoUrl: 'https://github.com/bamiebot-maker/Cognitivia',
                 tags: ['Flashcards', 'Quizzes', 'Study Tracker']
@@ -183,7 +183,7 @@
                 description: 'Cholera detection platform powered by data and designed for early cholera detection.',
                 status: 'live',
                 track: 'HealthTech',
-                imageUrl: 'img/projects/cholerai.jpg',
+                imageUrl: 'img/projects/cholerai.png',
                 liveUrl: 'https://chorai.web.app',
                 repoUrl: 'https://github.com/bamiebot-maker/cholerai',
                 tags: ['Health AI', 'Early Detection', 'Data-driven']
@@ -194,7 +194,7 @@
                 description: "A community-driven daily game where your votes shape tomorrow's challenge. Vote today, play tomorrow.",
                 status: 'live',
                 track: 'Social Game',
-                imageUrl: 'img/projects/push-or-pass.jpg',
+                imageUrl: 'img/projects/push-or-pass.svg',
                 liveUrl: 'https://push-or-pass.vercel.app',
                 repoUrl: 'https://github.com/bamiebot-maker/push-or-pass',
                 tags: ['Community', 'Daily Challenge', 'Voting']
