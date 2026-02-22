@@ -1,466 +1,291 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ibrahim Sobur Bamidele | Software Engineer & Web Developer</title>
+    <title>Ibrahim Sobur Bamidele | Web3 Software Engineer</title>
     <link rel="stylesheet" href="style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
-    <!-- Navigation -->
+    <div class="bg-grid" aria-hidden="true"></div>
+    <div class="bg-noise" aria-hidden="true"></div>
+    <div class="bg-glow bg-glow-a" aria-hidden="true"></div>
+    <div class="bg-glow bg-glow-b" aria-hidden="true"></div>
+
     <nav class="navbar">
         <div class="nav-container">
-            <div class="nav-logo">
-                <a href="#home">Bamietech<span>Dev</span></a>
-            </div>
+            <a href="#home" class="nav-logo" id="nav-brand">Bamietech<span>Dev</span></a>
             <div class="nav-menu" id="nav-menu">
                 <a href="#home" class="nav-link">Home</a>
                 <a href="#about" class="nav-link">About</a>
                 <a href="#skills" class="nav-link">Skills</a>
                 <a href="#projects" class="nav-link">Projects</a>
+                <a href="#status" class="nav-link">Status</a>
                 <a href="#achievements" class="nav-link">Achievements</a>
                 <a href="#education" class="nav-link">Education</a>
                 <a href="#contact" class="nav-link">Contact</a>
             </div>
-            <div class="hamburger" id="hamburger">
+            <button class="hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false" aria-controls="nav-menu">
                 <span class="bar"></span>
                 <span class="bar"></span>
                 <span class="bar"></span>
-            </div>
+            </button>
         </div>
     </nav>
 
-    <!-- Hero Section -->
-    <section id="home" class="hero">
-        <div class="hero-container">
-            <div class="hero-content">
-                <h1 class="hero-title">Ibrahim Sobur <span class="highlight">Bamidele</span></h1>
-                <h2 class="hero-subtitle">Software Engineer | Web Developer | AI Prompt Engineer | Web3 Solidity Developer</h2>
-                <p class="hero-description">Building innovative digital solutions with modern technologies. Passionate about creating impactful software that solves real-world problems.</p>
+    <section id="home" class="hero section-block">
+        <div class="container hero-shell">
+            <div class="hero-content" data-reveal>
+                <p class="eyebrow" id="hero-tag"><span class="live-dot"></span>Open to product + Web3 collaborations</p>
+                <h1 class="hero-title" id="hero-title">Ibrahim Sobur <span>Bamidele</span></h1>
+                <p class="hero-subtitle" id="hero-role-line">Software Engineer | Web Developer | AI Prompt Engineer | Web3 Solidity Developer</p>
+                <p class="hero-description" id="hero-description">I build internet products with practical blockchain utility, secure architecture, and user flows that feel fast and clear on every device.</p>
                 <div class="hero-buttons">
-                    <a href="#projects" class="btn btn-primary">View My Work</a>
-                    <a href="#contact" class="btn btn-secondary">Get In Touch</a>
-                    <a href="assets/Ibrahim_Bamidele_Resume.pdf" download class="btn btn-resume">
-                        <i class="fas fa-download"></i> Download Resume
+                    <a href="#projects" class="btn btn-primary">Explore Projects</a>
+                    <a href="#status" class="btn btn-secondary">View Current Status</a>
+                    <a href="assets/Ibrahim_Bamidele_Resume.pdf" id="hero-resume-link" download class="btn btn-resume">
+                        <i class="fas fa-download"></i> Resume
                     </a>
                 </div>
+                <ul class="hero-metrics" id="hero-metrics"></ul>
             </div>
-            <div class="hero-image">
-                <div class="image-container floating">
-                    <img src="img/bamie.jpg" alt="Ibrahim Sobur Bamidele" class="profile-image">
+
+            <div class="hero-visual" data-reveal>
+                <div class="avatar-frame">
+                    <img src="img/bamie.jpg" alt="Ibrahim Sobur Bamidele" class="profile-image" id="profile-image">
                 </div>
+                <div class="orbit orbit-one">Web2</div>
+                <div class="orbit orbit-two">Web3</div>
+                <div class="orbit orbit-three">Solidity</div>
+                <div class="orbit orbit-four">Coding</div>
+                <div class="orbit orbit-five">Open to Work</div>
+                <div class="orbit orbit-six">Building</div>
             </div>
         </div>
     </section>
 
-    <!-- About Section -->
-    <section id="about" class="about">
+    <section id="about" class="about section-block">
         <div class="container">
-            <h2 class="section-title">About Me</h2>
-            <div class="about-content">
-                <div class="about-text">
-                    <p>I'm Ibrahim Sobur Bamidele, a passionate software engineer and web developer with expertise in modern web technologies, AI prompt engineering, and Web3 development.</p>
-                    <p>With a strong foundation in both frontend and backend technologies, I create efficient, scalable, and user-friendly applications. I'm constantly learning and adapting to new technologies to stay at the forefront of the industry.</p>
-                    <p>When I'm not coding, I contribute to the developer community through mentorship and knowledge sharing.</p>
-                </div>
-                <div class="about-stats">
-                    <div class="stat">
-                        <h3>10+</h3>
-                        <p>Projects Completed</p>
+            <div class="section-heading" data-reveal>
+                <p class="section-kicker">Origin Block</p>
+                <h2 class="section-title">Builder Profile</h2>
+            </div>
+
+            <div class="about-grid">
+                <article class="about-card" data-reveal>
+                    <h3>Mission</h3>
+                    <div id="about-text"></div>
+                </article>
+
+                <aside class="about-facts" data-reveal>
+                    <div class="fact-card">
+                        <h4>Primary Focus</h4>
+                        <p>Secure full-stack apps + practical on-chain integration</p>
                     </div>
-                    <div class="stat">
-                        <h3>3+</h3>
-                        <p>Years Experience</p>
+                    <div class="fact-card">
+                        <h4>Current Mode</h4>
+                        <p>Shipping active products while expanding Web3 engineering depth</p>
                     </div>
-                    <div class="stat">
-                        <h3>5+</h3>
-                        <p>Technologies</p>
+                    <div class="fact-card">
+                        <h4>Collaboration</h4>
+                        <p>Open to freelance work, startup squads, and technical partnerships</p>
                     </div>
-                </div>
+                </aside>
             </div>
         </div>
     </section>
 
-    <!-- Skills Section -->
-    <section id="skills" class="skills">
+    <section id="skills" class="skills section-block">
         <div class="container">
-            <h2 class="section-title">Technical Skills</h2>
+            <div class="section-heading" data-reveal>
+                <p class="section-kicker">Tech Stack</p>
+                <h2 class="section-title">Execution Layer</h2>
+            </div>
+
             <div class="skills-grid">
-                <div class="skill-card">
-                    <div class="skill-icon">
-                        <i class="fab fa-html5"></i>
-                    </div>
+                <article class="skill-card" data-reveal>
+                    <i class="fab fa-html5"></i>
                     <h3>HTML</h3>
-                    <p>Semantic markup and accessibility-focused development</p>
-                </div>
-                <div class="skill-card">
-                    <div class="skill-icon">
-                        <i class="fab fa-css3-alt"></i>
-                    </div>
+                    <p>Semantic architecture for maintainable interfaces</p>
+                </article>
+                <article class="skill-card" data-reveal>
+                    <i class="fab fa-css3-alt"></i>
                     <h3>CSS</h3>
-                    <p>Responsive design, animations, and modern layouts</p>
-                </div>
-                <div class="skill-card">
-                    <div class="skill-icon">
-                        <i class="fab fa-js-square"></i>
-                    </div>
+                    <p>Responsive layout systems and strong visual identity</p>
+                </article>
+                <article class="skill-card" data-reveal>
+                    <i class="fab fa-js-square"></i>
                     <h3>JavaScript</h3>
-                    <p>Interactive web applications and modern frameworks</p>
-                </div>
-                <div class="skill-card">
-                    <div class="skill-icon">
-                        <i class="fab fa-php"></i>
-                    </div>
+                    <p>Interactive product behavior and scalable UI logic</p>
+                </article>
+                <article class="skill-card" data-reveal>
+                    <i class="fa-solid fa-code-branch"></i>
+                    <h3>TypeScript</h3>
+                    <p>Typed JavaScript for safer and scalable application logic</p>
+                </article>
+                <article class="skill-card" data-reveal>
+                    <i class="fab fa-php"></i>
                     <h3>PHP</h3>
-                    <p>Server-side scripting and backend development</p>
-                </div>
-                <div class="skill-card">
-                    <div class="skill-icon">
-                        <i class="fas fa-database"></i>
-                    </div>
+                    <p>Backend workflows, API logic, and business rules</p>
+                </article>
+                <article class="skill-card" data-reveal>
+                    <i class="fas fa-database"></i>
                     <h3>SQL</h3>
-                    <p>Database design, queries, and optimization</p>
-                </div>
-                <div class="skill-card">
-                    <div class="skill-icon">
-                        <i class="fas fa-cube"></i>
-                    </div>
+                    <p>Structured data design, query optimization, and persistence</p>
+                </article>
+                <article class="skill-card" data-reveal>
+                    <i class="fas fa-cube"></i>
                     <h3>Web3 / Solidity</h3>
-                    <p>Blockchain development and smart contracts</p>
-                </div>
-                <div class="skill-card">
-                    <div class="skill-icon">
-                        <i class="fas fa-robot"></i>
-                    </div>
-                    <h3>AI / Prompt Engineering</h3>
-                    <p>AI integration and optimized prompt creation</p>
-                </div>
+                    <p>Smart contracts, wallet interactions, and dApp patterns</p>
+                </article>
+                <article class="skill-card" data-reveal>
+                    <i class="fas fa-robot"></i>
+                    <h3>AI Prompt Engineering</h3>
+                    <p>Prompt workflows and AI-assisted product execution</p>
+                </article>
+                <article class="skill-card" data-reveal>
+                    <i class="fa-solid fa-gear"></i>
+                    <h3>Rust</h3>
+                    <p>Performance-focused systems programming for reliable tooling</p>
+                </article>
+                <article class="skill-card" data-reveal>
+                    <i class="fa-solid fa-bolt"></i>
+                    <h3>Vibe Coding Enthusiast</h3>
+                    <p>Rapid prototyping with strong product sense and execution speed</p>
+                </article>
             </div>
         </div>
     </section>
 
-    <!-- Projects Section -->
-    <section id="projects" class="projects">
+    <section id="projects" class="projects section-block">
         <div class="container">
-            <h2 class="section-title">My Projects</h2>
-            <div class="projects-grid">
-                <div class="project-card">
-                    <div class="project-image">
-                        <img src="img/projects/owlvault.jpg" alt="Owlvault" class="project-img">
-                        <div class="project-overlay">
-                            <a href="https://owl-vault.vercel.app/" class="project-link">View Project</a>
-                        </div>
-                    </div>
-                    <div class="project-content">
-                        <h3>Owlvault</h3>
-                        <p>A secure digital vault application for transferring digital data and managing sensitive information.</p>
-                        <div class="project-tags">
-                            <span class="tag">Security</span>
-                            <span class="tag">Web App</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="project-card">
-                    <div class="project-image">
-                        <img src="img/projects/logie.jpg" alt="Logie App" class="project-img">
-                        <div class="project-overlay">
-                            <a href="https://github.com/bamiebot-maker/lodgie-hostel-app" class="project-link">View Project</a>
-                        </div>
-                    </div>
-                    <div class="project-content">
-                        <h3>Logie App</h3>
-                        <p>A rental apartment management system currently in development.</p>
-                        <div class="project-tags">
-                            <span class="tag">In Progress</span>
-                            <span class="tag">Rental System</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="project-card">
-                    <div class="project-image">
-                        <img src="img/projects/bamiedata.jpg" alt="Bamiedata" class="project-img">
-                        <div class="project-overlay">
-                            <a href="https://bamiedata.com.ng" class="project-link">View Project</a>
-                        </div>
-                    </div>
-                    <div class="project-content">
-                        <h3>Bamiedata</h3>
-                        <p>A VTU (Virtual Top-Up) platform for seamless airtime and data transactions.</p>
-                        <div class="project-tags">
-                            <span class="tag">VTU</span>
-                            <span class="tag">E-commerce</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="project-card">
-                    <div class="project-image">
-                        <img src="img/projects/fud-security.jpg" alt="FUD Security Portal" class="project-img">
-                        <div class="project-overlay">
-                            <a href="#" class="project-link">View Project</a>
-                        </div>
-                    </div>
-                    <div class="project-content">
-                        <h3>FUD Security Portal</h3>
-                        <p>Security portal for Federal University Dutse to enhance campus safety.</p>
-                        <div class="project-tags">
-                            <span class="tag">Security</span>
-                            <span class="tag">University</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="project-card">
-                    <div class="project-image">
-                        <img src="img/projects/fudmap.jpg" alt="Fudmap" class="project-img">
-                        <div class="project-overlay">
-                            <a href="https://fudblo.onrender.com/" class="project-link">View Project</a>
-                        </div>
-                    </div>
-                    <div class="project-content">
-                        <h3>FudBlo</h3>
-                        <p>Campus navigation system for Federal University Dutse.</p>
-                        <div class="project-tags">
-                            <span class="tag">Navigation</span>
-                            <span class="tag">University</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="project-card">
-                    <div class="project-image">
-                        <img src="img/projects/mindpal.jpg" alt="Mindpal" class="project-img">
-                        <div class="project-overlay">
-                            <a href="https://bit.ly/mind_pal/" class="project-link">View Project</a>
-                        </div>
-                    </div>
-                    <div class="project-content">
-                        <h3>Mindpal</h3>
-                        <p>AI-powered mental wellness application for personalized support.</p>
-                        <div class="project-tags">
-                            <span class="tag">AI</span>
-                            <span class="tag">Wellness</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="project-card">
-                    <div class="project-image">
-                        <img src="img/projects/kestrelpay.jpg" alt="Kestrelpay" class="project-img">
-                        <div class="project-overlay">
-                            <a href="https://kestrelpaay.vercel.app/" class="project-link">View Project</a>
-                        </div>
-                    </div>
-                    <div class="project-content">
-                        <h3>Kestrelpay</h3>
-                        <p>Web3 DApp for secure cryptocurrency transactions, currently in development for BlockDAG Hackathon.</p>
-                        <div class="project-tags">
-                            <span class="tag">Web3</span>
-                            <span class="tag">Blockchain</span>
-                            <span class="tag">Hackathon</span>
-                        </div>
-                    </div>
-                </div>
+            <div class="section-heading" data-reveal>
+                <p class="section-kicker">Portfolio Grid</p>
+                <h2 class="section-title">Recent Work</h2>
+            </div>
+
+            <div class="project-legend" data-reveal>
+                <span class="legend-item"><span class="legend-dot live"></span>Live (opens live link)</span>
+                <span class="legend-item"><span class="legend-dot building"></span>Building (opens GitHub repo)</span>
+                <span class="legend-item"><span class="legend-dot pilot"></span>Pilot / Internal</span>
+            </div>
+
+            <div class="projects-grid" id="projects-grid"></div>
+            <div class="projects-actions" id="projects-actions">
+                <button type="button" class="btn btn-secondary" id="projects-toggle">View More Projects</button>
             </div>
         </div>
     </section>
 
-    <!-- Achievements Section -->
-    <section id="achievements" class="achievements">
+    <section id="status" class="status section-block">
         <div class="container">
-            <h2 class="section-title">Achievements & Leadership</h2>
-            <div class="achievements-timeline">
-                <div class="timeline-item">
-                    <div class="timeline-content">
-                        <h3>Owner of Bamiedata</h3>
-                        <p>Founded and manage a successful VTU platform serving customers nationwide.</p>
-                    </div>
-                </div>
-                <div class="timeline-item">
-                    <div class="timeline-content">
-                        <h3>Team Leader at Eagle Devs</h3>
-                        <p>Leading a talented team of developers in hackathon competitions.</p>
-                    </div>
-                </div>
-                <div class="timeline-item">
-                    <div class="timeline-content">
-                        <h3>Top 1 (DevCrib Alpha) at DevCrib Community</h3>
-                        <p>Achieved top position in the DevCrib Community at Federal University Dutse.</p>
-                    </div>
-                </div>
-                <div class="timeline-item">
-                    <div class="timeline-content">
-                        <h3>Member, Google Developer Group (GDG)</h3>
-                        <p>Active member of GDG Federal University Dutse chapter.</p>
-                    </div>
-                </div>
-                <div class="timeline-item">
-                    <div class="timeline-content">
-                        <h3>Member, National Association of Computing Students (NACOS)</h3>
-                        <p>Member of NACOS FUD chapter, promoting computing education.</p>
-                    </div>
-                </div>
-                <div class="timeline-item">
-                    <div class="timeline-content">
-                        <h3>Speaker, House of Representatives – NAKOLES FUD</h3>
-                        <p>Delivered speeches at the student legislative body.</p>
-                    </div>
-                </div>
-                <div class="timeline-item">
-                    <div class="timeline-content">
-                        <h3>FESSU Senator representing FUD</h3>
-                        <p>Represented Federal University Dutse at the Federation of Ekiti State Students.</p>
-                    </div>
-                </div>
-                <div class="timeline-item">
-                    <div class="timeline-content">
-                        <h3>Member, MSSN B-Zone</h3>
-                        <p>Active member of the Muslim Students' Society of Nigeria, B-Zone.</p>
-                    </div>
-                </div>
-                <div class="timeline-item">
-                    <div class="timeline-content">
-                        <h3>AMO (ii) MSSN Akure Area Council</h3>
-                        <p>Asset Maintenance Officer at MSSN Akure Area Council.</p>
-                    </div>
-                </div>
-                <div class="timeline-item">
-                    <div class="timeline-content">
-                        <h3>Secretary General, MSSO B-Zone</h3>
-                        <p>Served as Secretary General for Muslim Students Security Organization, B-Zone.</p>
-                    </div>
-                </div>
+            <div class="section-heading" data-reveal>
+                <p class="section-kicker">Live Dashboard</p>
+                <h2 class="section-title">Current Projects and Status</h2>
             </div>
+
+            <div class="status-grid">
+                <article class="status-panel" data-reveal>
+                    <h3><i class="fas fa-satellite-dish"></i> Current Sprint</h3>
+                    <ul class="status-list" id="status-building-list"></ul>
+                </article>
+
+                <article class="status-panel" data-reveal>
+                    <h3><i class="fas fa-broadcast-tower"></i> Live Operations</h3>
+                    <ul class="status-list" id="status-live-list"></ul>
+                </article>
+
+                <article class="status-panel" data-reveal>
+                    <h3><i class="fas fa-bolt"></i> Availability</h3>
+                    <ul class="availability-list" id="availability-list"></ul>
+                </article>
+            </div>
+
+            <article class="status-timeline" data-reveal>
+                <h3>Project State Timeline</h3>
+                <div id="status-timeline"></div>
+            </article>
         </div>
     </section>
 
-    <!-- Education Section -->
-    <section id="education" class="education">
+    <section id="achievements" class="achievements section-block">
         <div class="container">
-            <h2 class="section-title">Education & Training</h2>
-            <div class="education-grid">
-                <div class="education-card">
-                    <div class="education-icon">
-                        <i class="fas fa-graduation-cap"></i>
-                    </div>
-                    <div class="education-content">
-                        <h3>Software Engineering</h3>
-                        <p class="institution">Federal University Dutse</p>
-                        <p class="duration">Penultimate Student</p>
-                    </div>
-                </div>
-                <div class="education-card">
-                    <div class="education-icon">
-                        <i class="fas fa-laptop-code"></i>
-                    </div>
-                    <div class="education-content">
-                        <h3>Web Development</h3>
-                        <p class="institution">Trybe_X Bootcamp</p>
-                        <p class="duration">2024</p>
-                    </div>
-                </div>
-                <div class="education-card">
-                    <div class="education-icon">
-                        <i class="fab fa-youtube"></i>
-                    </div>
-                    <div class="education-content">
-                        <h3>Codebro YouTube Tutorials</h3>
-                        <p class="institution">Self-paced Learning</p>
-                        <p class="duration">Ongoing</p>
-                    </div>
-                </div>
-                <div class="education-card">
-                    <div class="education-icon">
-                        <i class="fas fa-book"></i>
-                    </div>
-                    <div class="education-content">
-                        <h3>Udemy Courses</h3>
-                        <p class="institution">Various Instructors</p>
-                        <p class="duration">Self-paced Learning</p>
-                    </div>
-                </div>
-                <div class="education-card">
-                    <div class="education-icon">
-                        <i class="fas fa-globe"></i>
-                    </div>
-                    <div class="education-content">
-                        <h3>W3Schools</h3>
-                        <p class="institution">Online Resource</p>
-                        <p class="duration">Self-paced Learning</p>
-                    </div>
-                </div>
-                <div class="education-card">
-                    <div class="education-icon">
-                        <i class="fas fa-robot"></i>
-                    </div>
-                    <div class="education-content">
-                        <h3>Opectrat AI Learning</h3>
-                        <p class="institution">AI Education Platform</p>
-                        <p class="duration">2025</p>
-                    </div>
-                </div>
+            <div class="section-heading" data-reveal>
+                <p class="section-kicker">Track Record</p>
+                <h2 class="section-title">Achievements and Leadership</h2>
             </div>
+
+            <div class="achievement-grid" id="achievement-grid"></div>
         </div>
     </section>
 
-    <!-- Contact Section -->
-    <section id="contact" class="contact">
+    <section id="education" class="education section-block">
         <div class="container">
-            <h2 class="section-title">Get In Touch</h2>
-            <div class="contact-content">
-                <div class="contact-info">
-                    <div class="contact-item">
-                        <div class="contact-icon">
-                            <i class="fab fa-whatsapp"></i>
-                        </div>
-                        <div class="contact-details">
+            <div class="section-heading" data-reveal>
+                <p class="section-kicker">Knowledge Layer</p>
+                <h2 class="section-title">Education and Training</h2>
+            </div>
+
+            <div class="education-grid" id="education-grid"></div>
+        </div>
+    </section>
+
+    <section id="contact" class="contact section-block">
+        <div class="container">
+            <div class="section-heading" data-reveal>
+                <p class="section-kicker">Ping Me</p>
+                <h2 class="section-title">Get In Touch</h2>
+            </div>
+
+            <div class="contact-shell">
+                <div class="contact-info" data-reveal>
+                    <a class="contact-item" id="contact-whatsapp" href="https://wa.me/2349129324801" target="_blank" rel="noopener noreferrer">
+                        <i class="fab fa-whatsapp"></i>
+                        <div>
                             <h3>WhatsApp</h3>
-                            <a href="https://wa.me/2349129324801" target="_blank" class="contact-link">+2349129324801</a>
+                            <p id="contact-whatsapp-label">+2349129324801</p>
                         </div>
-                    </div>
-                    <div class="contact-item">
-                        <div class="contact-icon">
-                            <i class="fas fa-envelope"></i>
-                        </div>
-                        <div class="contact-details">
+                    </a>
+                    <a class="contact-item" id="contact-email" href="mailto:bamiebot@gmail.com">
+                        <i class="fas fa-envelope"></i>
+                        <div>
                             <h3>Email</h3>
-                            <a href="mailto:bamiebot@gmail.com" class="contact-link">bamiebot@gmail.com</a>
+                            <p id="contact-email-label">bamiebot@gmail.com</p>
                         </div>
-                    </div>
-                    <div class="contact-item">
-                        <div class="contact-icon">
-                            <i class="fab fa-twitter"></i>
-                        </div>
-                        <div class="contact-details">
+                    </a>
+                    <a class="contact-item" id="contact-twitter" href="https://twitter.com/bamietech_dev" target="_blank" rel="noopener noreferrer">
+                        <i class="fab fa-twitter"></i>
+                        <div>
                             <h3>Twitter</h3>
-                            <a href="https://twitter.com/bamietech_dev" target="_blank" class="contact-link">@bamietech_dev</a>
+                            <p id="contact-twitter-label">@bamietech_dev</p>
                         </div>
-                    </div>
-                    <div class="contact-item">
-                        <div class="contact-icon">
-                            <i class="fab fa-facebook"></i>
-                        </div>
-                        <div class="contact-details">
+                    </a>
+                    <a class="contact-item" id="contact-facebook" href="https://facebook.com/IbrahimBamidele" target="_blank" rel="noopener noreferrer">
+                        <i class="fab fa-facebook"></i>
+                        <div>
                             <h3>Facebook</h3>
-                            <a href="https://facebook.com/IbrahimBamidele" target="_blank" class="contact-link">Ibrahim Bamidele</a>
+                            <p id="contact-facebook-label">Ibrahim Bamidele</p>
                         </div>
-                    </div>
-                    <div class="contact-resume">
-                        <a href="assets/Ibrahim_Bamidele_Resume.pdf" download class="btn btn-resume">
-                            <i class="fas fa-download"></i> Download Resume
-                        </a>
-                    </div>
+                    </a>
                 </div>
-                <div class="contact-form">
-                    <form id="contactForm">
+
+                <div class="contact-form-wrap" data-reveal>
+                    <form id="contactForm" class="contact-form">
                         <div class="form-group">
-                            <input type="text" id="name" placeholder="Your Name" required>
+                            <label for="name">Name</label>
+                            <input type="text" id="name" name="name" placeholder="Your name" required>
                         </div>
                         <div class="form-group">
-                            <input type="email" id="email" placeholder="Your Email" required>
+                            <label for="email">Email</label>
+                            <input type="email" id="email" name="email" placeholder="you@example.com" required>
                         </div>
                         <div class="form-group">
-                            <textarea id="message" rows="5" placeholder="Your Message" required></textarea>
+                            <label for="message">Message</label>
+                            <textarea id="message" name="message" rows="5" placeholder="Tell me about your project" required></textarea>
                         </div>
                         <button type="submit" class="btn btn-primary">Send Message</button>
                     </form>
@@ -469,46 +294,36 @@
         </div>
     </section>
 
-    <!-- Footer -->
     <footer class="footer">
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-logo">
-                    <a href="#home">Bamietech<span>Dev</span></a>
-                </div>
-                <div class="footer-links">
-                    <a href="#home">Home</a>
-                    <a href="#about">About</a>
-                    <a href="#skills">Skills</a>
-                    <a href="#projects">Projects</a>
-                    <a href="#contact">Contact</a>
-                </div>
-                <div class="footer-social">
-                    <a href="https://wa.me/2349129324801" target="_blank"><i class="fab fa-whatsapp"></i></a>
-                    <a href="https://twitter.com/bamietechdev" target="_blank"><i class="fab fa-twitter"></i></a>
-                    <a href="https://facebook.com/IbrahimBamidele" target="_blank"><i class="fab fa-facebook"></i></a>
-                    <a href="#" target="_blank"><i class="fab fa-linkedin"></i></a>
-                    <a href="https://github.com/bamiebot-maker/" target="_blank"><i class="fab fa-github"></i></a>
-                </div>
+        <div class="container footer-shell">
+            <a href="#home" class="footer-logo" id="footer-brand">Bamietech<span>Dev</span></a>
+            <div class="footer-links">
+                <a href="#home">Home</a>
+                <a href="#projects">Projects</a>
+                <a href="#status">Status</a>
+                <a href="#contact">Contact</a>
             </div>
-            <div class="footer-bottom">
-                <p>&copy; 2025 Ibrahim Sobur Bamidele. All rights reserved.</p>
+            <div class="footer-social">
+                <a href="https://wa.me/2349129324801" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp" id="footer-whatsapp"><i class="fab fa-whatsapp"></i></a>
+                <a href="https://twitter.com/bamietechdev" target="_blank" rel="noopener noreferrer" aria-label="Twitter" id="footer-twitter"><i class="fab fa-twitter"></i></a>
+                <a href="https://facebook.com/IbrahimBamidele" target="_blank" rel="noopener noreferrer" aria-label="Facebook" id="footer-facebook"><i class="fab fa-facebook"></i></a>
+                <a href="https://github.com/bamiebot-maker/" target="_blank" rel="noopener noreferrer" aria-label="GitHub" id="footer-github"><i class="fab fa-github"></i></a>
             </div>
         </div>
+        <p class="footer-copy">&copy; <span id="year">2026</span> Ibrahim Sobur Bamidele. All rights reserved.</p>
     </footer>
 
-    <!-- Floating CTA Button -->
     <div class="floating-cta" id="floatingCta">
-        <button class="cta-button">
+        <button class="cta-button" aria-label="Open hire options">
             <i class="fas fa-briefcase"></i>
-            <span>Hire Me</span>
+            <span>Hire</span>
         </button>
         <div class="cta-options" id="ctaOptions">
-            <a href="https://wa.me/2349129324801" target="_blank" class="cta-option">
+            <a href="https://wa.me/2349129324801" target="_blank" rel="noopener noreferrer" class="cta-option" id="cta-whatsapp">
                 <i class="fab fa-whatsapp"></i>
                 <span>WhatsApp</span>
             </a>
-            <a href="mailto:bamiebot@gmail.com" class="cta-option">
+            <a href="mailto:bamiebot@gmail.com" class="cta-option" id="cta-email">
                 <i class="fas fa-envelope"></i>
                 <span>Email</span>
             </a>
@@ -519,11 +334,11 @@
         </div>
     </div>
 
-    <!-- Back to Top Button -->
-    <button class="back-to-top" id="backToTop">
+    <button class="back-to-top" id="backToTop" aria-label="Back to top">
         <i class="fas fa-chevron-up"></i>
     </button>
 
+    <script src="content-store.js"></script>
     <script src="script.js"></script>
 </body>
 </html>

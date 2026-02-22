@@ -1,0 +1,430 @@
+﻿* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --bg-a: #eff7ff;
+    --bg-b: #fff5ea;
+    --surface: rgba(255, 255, 255, 0.82);
+    --ink: #071c35;
+    --ink-soft: #31506f;
+    --line: rgba(7, 28, 53, 0.16);
+    --accent: #00c8ff;
+    --accent-strong: #0a95c6;
+    --accent-warm: #ff6f3c;
+    --danger: #d43b3b;
+    --ok: #00b970;
+    --radius-lg: 22px;
+    --radius-md: 14px;
+    --shadow-soft: 0 18px 40px rgba(11, 66, 110, 0.15);
+    --shadow-strong: 0 24px 50px rgba(11, 66, 110, 0.22);
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: 'Space Grotesk', sans-serif;
+    color: var(--ink);
+    background: linear-gradient(155deg, var(--bg-a) 0%, #e8f4ff 55%, var(--bg-b) 100%);
+    line-height: 1.6;
+    min-height: 100vh;
+    position: relative;
+}
+
+.is-hidden {
+    display: none !important;
+}
+
+.admin-bg {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: -1;
+}
+
+.admin-grid {
+    background-image: linear-gradient(rgba(0, 83, 134, 0.08) 1px, transparent 1px), linear-gradient(90deg, rgba(0, 83, 134, 0.08) 1px, transparent 1px);
+    background-size: 44px 44px;
+    mask-image: radial-gradient(circle at 50% 35%, black 32%, transparent 84%);
+}
+
+.admin-glow-a {
+    background: radial-gradient(circle at 20% 20%, rgba(0, 200, 255, 0.35), transparent 55%);
+    filter: blur(72px);
+}
+
+.admin-glow-b {
+    background: radial-gradient(circle at 84% 74%, rgba(255, 111, 60, 0.32), transparent 55%);
+    filter: blur(72px);
+}
+
+.admin-shell {
+    width: min(1200px, 100% - 2.2rem);
+    margin: 2rem auto 3rem;
+    display: grid;
+    gap: 1rem;
+}
+
+.admin-login-shell {
+    width: min(560px, 100% - 1.4rem);
+    margin: 5.5rem auto 1.5rem;
+}
+
+.card {
+    background: var(--surface);
+    border-radius: var(--radius-lg);
+    border: 1px solid rgba(255, 255, 255, 0.82);
+    box-shadow: var(--shadow-soft);
+    padding: 1.15rem;
+}
+
+.login-card {
+    display: grid;
+    gap: 0.9rem;
+}
+
+.login-form {
+    display: grid;
+    gap: 0.75rem;
+}
+
+.login-form .btn {
+    width: 100%;
+}
+
+.back-btn {
+    width: fit-content;
+}
+
+.admin-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 1rem;
+}
+
+.kicker {
+    display: inline-flex;
+    align-items: center;
+    border-radius: 999px;
+    padding: 0.28rem 0.6rem;
+    background: rgba(0, 200, 255, 0.18);
+    color: var(--accent-strong);
+    text-transform: uppercase;
+    letter-spacing: 0.09em;
+    font-weight: 700;
+    font-size: 0.75rem;
+    margin-bottom: 0.45rem;
+}
+
+.admin-header h1 {
+    font-family: 'Chakra Petch', sans-serif;
+    font-size: clamp(1.5rem, 2.6vw, 2.2rem);
+    line-height: 1.2;
+}
+
+.subtitle {
+    margin-top: 0.35rem;
+    color: var(--ink-soft);
+}
+
+.header-actions {
+    display: flex;
+    gap: 0.65rem;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+}
+
+.btn {
+    border: none;
+    border-radius: 12px;
+    padding: 0.64rem 0.95rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.45rem;
+    text-decoration: none;
+    font: inherit;
+    font-weight: 700;
+    cursor: pointer;
+    transition: 0.25s ease;
+}
+
+.btn-primary {
+    background: linear-gradient(125deg, var(--accent), #31ddff);
+    color: #05324a;
+    box-shadow: 0 13px 24px rgba(0, 150, 207, 0.25);
+}
+
+.btn-primary:hover {
+    transform: translateY(-2px);
+}
+
+.btn-secondary {
+    background: rgba(255, 255, 255, 0.84);
+    color: var(--ink);
+    border: 1px solid rgba(0, 150, 207, 0.22);
+}
+
+.btn-secondary:hover {
+    border-color: var(--accent);
+    transform: translateY(-2px);
+}
+
+.btn-danger {
+    background: rgba(212, 59, 59, 0.12);
+    color: #932323;
+    border: 1px solid rgba(212, 59, 59, 0.34);
+}
+
+.btn-danger:hover {
+    background: rgba(212, 59, 59, 0.2);
+}
+
+.note-card p {
+    color: var(--ink-soft);
+    font-size: 0.93rem;
+}
+
+.section-head {
+    margin-bottom: 0.8rem;
+}
+
+.section-head h2 {
+    font-family: 'Chakra Petch', sans-serif;
+    font-size: 1.4rem;
+}
+
+.section-head.with-action {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.8rem;
+    flex-wrap: wrap;
+}
+
+.section-hint {
+    color: var(--ink-soft);
+    font-size: 0.87rem;
+    margin-bottom: 0.85rem;
+}
+
+.grid-2 {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.85rem;
+}
+
+.field {
+    display: grid;
+    gap: 0.34rem;
+}
+
+.field span {
+    font-size: 0.77rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    font-weight: 700;
+    color: var(--ink-soft);
+}
+
+.field input,
+.field textarea,
+.field select {
+    width: 100%;
+    border-radius: 12px;
+    border: 1px solid var(--line);
+    background: rgba(255, 255, 255, 0.92);
+    color: var(--ink);
+    font: inherit;
+    padding: 0.62rem 0.72rem;
+    transition: 0.22s ease;
+}
+
+.field input:focus,
+.field textarea:focus,
+.field select:focus {
+    outline: none;
+    border-color: var(--accent);
+    box-shadow: 0 0 0 4px rgba(0, 200, 255, 0.16);
+}
+
+.field.full {
+    grid-column: 1 / -1;
+}
+
+.stats-grid {
+    margin-top: 1rem;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0.85rem;
+}
+
+.stats-col {
+    border: 1px solid var(--line);
+    border-radius: var(--radius-md);
+    padding: 0.85rem;
+    background: rgba(255, 255, 255, 0.68);
+}
+
+.stats-col h3 {
+    font-family: 'Chakra Petch', sans-serif;
+    font-size: 1rem;
+    margin-bottom: 0.5rem;
+}
+
+.editor-list {
+    display: grid;
+    gap: 0.7rem;
+}
+
+.editor-card {
+    border-radius: var(--radius-md);
+    border: 1px solid var(--line);
+    background: rgba(255, 255, 255, 0.65);
+    padding: 0.9rem;
+    display: grid;
+    gap: 0.68rem;
+}
+
+.editor-card-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 0.65rem;
+    flex-wrap: wrap;
+}
+
+.editor-card h3 {
+    font-family: 'Chakra Petch', sans-serif;
+    font-size: 1rem;
+}
+
+.editor-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.65rem;
+}
+
+.editor-grid .full {
+    grid-column: 1 / -1;
+}
+
+.inline-status {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    border-radius: 999px;
+    padding: 0.28rem 0.56rem;
+    font-size: 0.74rem;
+    text-transform: uppercase;
+    letter-spacing: 0.07em;
+    font-weight: 700;
+    color: #0d4058;
+    background: rgba(0, 200, 255, 0.2);
+}
+
+.remove-btn {
+    border: 1px solid rgba(212, 59, 59, 0.34);
+    background: rgba(212, 59, 59, 0.12);
+    color: #8b2727;
+    border-radius: 10px;
+    font: inherit;
+    font-weight: 700;
+    padding: 0.5rem 0.72rem;
+    cursor: pointer;
+}
+
+.remove-btn:hover {
+    background: rgba(212, 59, 59, 0.19);
+}
+
+.footer-actions {
+    display: grid;
+    gap: 0.75rem;
+}
+
+.action-row {
+    display: flex;
+    gap: 0.65rem;
+    flex-wrap: wrap;
+}
+
+.file-btn {
+    cursor: pointer;
+}
+
+.admin-message {
+    min-height: 1.35rem;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--ink-soft);
+}
+
+.admin-message.success {
+    color: #0e6d46;
+}
+
+.admin-message.error {
+    color: #9b2222;
+}
+
+@media (max-width: 1024px) {
+    .admin-login-shell {
+        margin-top: 3rem;
+    }
+
+    .admin-shell {
+        width: min(1200px, 100% - 1.2rem);
+        margin-top: 1rem;
+    }
+
+    .admin-header {
+        flex-direction: column;
+    }
+
+    .header-actions {
+        justify-content: flex-start;
+    }
+
+    .grid-2,
+    .stats-grid,
+    .editor-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .field.full,
+    .editor-grid .full {
+        grid-column: 1;
+    }
+}
+
+@media (max-width: 580px) {
+    .admin-login-shell {
+        width: min(560px, 100% - 1rem);
+        margin-top: 1.6rem;
+    }
+
+    .card {
+        padding: 0.9rem;
+        border-radius: 16px;
+    }
+
+    .admin-header h1 {
+        font-size: 1.45rem;
+    }
+
+    .action-row,
+    .header-actions {
+        width: 100%;
+    }
+
+    .btn {
+        width: 100%;
+        justify-content: center;
+    }
+}

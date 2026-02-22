@@ -1,0 +1,209 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio Admin | BamietechDev</title>
+    <link rel="stylesheet" href="admin.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="admin-bg admin-grid" aria-hidden="true"></div>
+    <div class="admin-bg admin-glow-a" aria-hidden="true"></div>
+    <div class="admin-bg admin-glow-b" aria-hidden="true"></div>
+
+    <main id="admin-login-shell" class="admin-login-shell">
+        <section class="card login-card">
+            <p class="kicker">Private Access</p>
+            <h1>Admin Login</h1>
+            <p class="subtitle">Use your admin credentials to open the editor.</p>
+
+            <form id="admin-login-form" class="login-form" autocomplete="off">
+                <label class="field">
+                    <span>Username</span>
+                    <input type="text" id="login-username" placeholder="admin" required>
+                </label>
+                <label class="field">
+                    <span>Password</span>
+                    <input type="password" id="login-password" placeholder="admin123" required>
+                </label>
+                <button type="submit" class="btn btn-primary"><i class="fas fa-lock-open"></i> Enter Admin Panel</button>
+            </form>
+
+            <p id="login-message" class="admin-message" aria-live="polite"></p>
+            <a href="index.html" class="btn btn-secondary back-btn"><i class="fas fa-arrow-left"></i> Back to Site</a>
+        </section>
+    </main>
+
+    <main class="admin-shell is-hidden" id="admin-app">
+        <header class="admin-header card">
+            <div>
+                <p class="kicker">No-Code Editor</p>
+                <h1>Portfolio Admin Panel</h1>
+                <p class="subtitle">Edit your details, projects, achievements, and links from here.</p>
+            </div>
+            <div class="header-actions">
+                <a href="index.html" class="btn btn-secondary"><i class="fas fa-arrow-left"></i> Back to Site</a>
+                <button id="save-all" type="button" class="btn btn-primary"><i class="fas fa-floppy-disk"></i> Save All Changes</button>
+                <button id="logout-admin" type="button" class="btn btn-danger"><i class="fas fa-right-from-bracket"></i> Logout</button>
+            </div>
+        </header>
+
+        <section class="card note-card">
+            <p><strong>Note:</strong> this admin has no signup. Access is restricted to your admin login only.</p>
+        </section>
+
+        <section class="card">
+            <div class="section-head">
+                <h2>Profile and Hero</h2>
+            </div>
+            <div class="grid-2">
+                <label class="field">
+                    <span>Brand Name</span>
+                    <input type="text" id="brand-name" placeholder="BamietechDev">
+                </label>
+                <label class="field">
+                    <span>Full Name</span>
+                    <input type="text" id="full-name" placeholder="Ibrahim Sobur Bamidele">
+                </label>
+                <label class="field full">
+                    <span>Hero Tag</span>
+                    <input type="text" id="hero-tag-input" placeholder="Open to product + Web3 collaborations">
+                </label>
+                <label class="field full">
+                    <span>Role Line</span>
+                    <input type="text" id="role-line" placeholder="Software Engineer | Web Developer | ...">
+                </label>
+                <label class="field full">
+                    <span>Hero Description</span>
+                    <textarea id="hero-description-input" rows="3"></textarea>
+                </label>
+                <label class="field full">
+                    <span>About Paragraph 1</span>
+                    <textarea id="about-1" rows="3"></textarea>
+                </label>
+                <label class="field full">
+                    <span>About Paragraph 2</span>
+                    <textarea id="about-2" rows="3"></textarea>
+                </label>
+                <label class="field full">
+                    <span>About Paragraph 3</span>
+                    <textarea id="about-3" rows="3"></textarea>
+                </label>
+            </div>
+
+            <div class="stats-grid">
+                <div class="stats-col">
+                    <h3>Hero Stat 1</h3>
+                    <label class="field"><span>Value</span><input type="text" id="stat-1-value"></label>
+                    <label class="field"><span>Label</span><input type="text" id="stat-1-label"></label>
+                </div>
+                <div class="stats-col">
+                    <h3>Hero Stat 2</h3>
+                    <label class="field"><span>Value</span><input type="text" id="stat-2-value"></label>
+                    <label class="field"><span>Label</span><input type="text" id="stat-2-label"></label>
+                </div>
+                <div class="stats-col">
+                    <h3>Hero Stat 3</h3>
+                    <label class="field"><span>Value</span><input type="text" id="stat-3-value"></label>
+                    <label class="field"><span>Label</span><input type="text" id="stat-3-label"></label>
+                </div>
+            </div>
+        </section>
+
+        <section class="card">
+            <div class="section-head">
+                <h2>Contact and Links</h2>
+            </div>
+            <div class="grid-2">
+                <label class="field">
+                    <span>WhatsApp Label</span>
+                    <input type="text" id="contact-whatsapp-label-input">
+                </label>
+                <label class="field">
+                    <span>WhatsApp URL</span>
+                    <input type="url" id="contact-whatsapp-url-input" placeholder="https://wa.me/...">
+                </label>
+                <label class="field">
+                    <span>Email</span>
+                    <input type="email" id="contact-email-input">
+                </label>
+                <label class="field">
+                    <span>Resume URL</span>
+                    <input type="text" id="resume-url-input" placeholder="assets/Ibrahim_Bamidele_Resume.pdf">
+                </label>
+                <label class="field">
+                    <span>Twitter Label</span>
+                    <input type="text" id="contact-twitter-label-input">
+                </label>
+                <label class="field">
+                    <span>Twitter URL</span>
+                    <input type="url" id="contact-twitter-url-input">
+                </label>
+                <label class="field">
+                    <span>Facebook Label</span>
+                    <input type="text" id="contact-facebook-label-input">
+                </label>
+                <label class="field">
+                    <span>Facebook URL</span>
+                    <input type="url" id="contact-facebook-url-input">
+                </label>
+                <label class="field">
+                    <span>GitHub Label</span>
+                    <input type="text" id="contact-github-label-input">
+                </label>
+                <label class="field">
+                    <span>GitHub URL</span>
+                    <input type="url" id="contact-github-url-input">
+                </label>
+                <label class="field full">
+                    <span>Availability (one line per item)</span>
+                    <textarea id="availability-input" rows="4"></textarea>
+                </label>
+            </div>
+        </section>
+
+        <section class="card">
+            <div class="section-head with-action">
+                <h2>Projects</h2>
+                <button id="add-project" type="button" class="btn btn-secondary"><i class="fas fa-plus"></i> Add Project</button>
+            </div>
+            <p class="section-hint">For `building` projects, fill GitHub URL in `Repo URL`. For `live` projects, fill `Live URL`.</p>
+            <div id="projects-editor" class="editor-list"></div>
+        </section>
+
+        <section class="card">
+            <div class="section-head with-action">
+                <h2>Achievements</h2>
+                <button id="add-achievement" type="button" class="btn btn-secondary"><i class="fas fa-plus"></i> Add Achievement</button>
+            </div>
+            <div id="achievements-editor" class="editor-list"></div>
+        </section>
+
+        <section class="card">
+            <div class="section-head with-action">
+                <h2>Education</h2>
+                <button id="add-education" type="button" class="btn btn-secondary"><i class="fas fa-plus"></i> Add Education</button>
+            </div>
+            <p class="section-hint">Use Font Awesome classes for icon, e.g. `fas fa-graduation-cap`.</p>
+            <div id="education-editor" class="editor-list"></div>
+        </section>
+
+        <section class="card footer-actions">
+            <div class="action-row">
+                <button id="reset-defaults" type="button" class="btn btn-danger"><i class="fas fa-rotate-left"></i> Reset to Default</button>
+                <button id="export-json" type="button" class="btn btn-secondary"><i class="fas fa-download"></i> Export JSON</button>
+                <label class="btn btn-secondary file-btn" for="import-json"><i class="fas fa-upload"></i> Import JSON</label>
+                <input id="import-json" type="file" accept="application/json" hidden>
+            </div>
+            <p id="admin-message" class="admin-message" aria-live="polite"></p>
+        </section>
+    </main>
+
+    <script src="content-store.js"></script>
+    <script src="admin.js"></script>
+</body>
+</html>
