@@ -16,7 +16,7 @@
     }
 };
 
-const PROJECT_PREVIEW_COUNT = 4;
+const PROJECT_PREVIEW_COUNT = 7;
 let allProjects = [];
 let projectsExpanded = false;
 let isProjectsToggleBound = false;
@@ -250,7 +250,21 @@ function renderProjects() {
         titleRow.append(title, track);
 
         const description = document.createElement('p');
+        description.className = 'project-description';
         description.textContent = project.description || '';
+
+        let descriptionToggle = null;
+        if ((project.description || '').length > 145) {
+            description.classList.add('is-collapsed');
+            descriptionToggle = document.createElement('button');
+            descriptionToggle.type = 'button';
+            descriptionToggle.className = 'project-read-more';
+            descriptionToggle.textContent = 'View more';
+            descriptionToggle.addEventListener('click', () => {
+                const expanded = description.classList.toggle('is-expanded');
+                descriptionToggle.textContent = expanded ? 'View less' : 'View more';
+            });
+        }
 
         const tags = document.createElement('div');
         tags.className = 'project-tags';
@@ -262,7 +276,11 @@ function renderProjects() {
             tags.append(tag);
         });
 
-        contentWrap.append(titleRow, description, tags);
+        contentWrap.append(titleRow, description);
+        if (descriptionToggle) {
+            contentWrap.append(descriptionToggle);
+        }
+        contentWrap.append(tags);
         card.append(imageWrap, contentWrap);
         projectsGrid.append(card);
     });
@@ -379,9 +397,28 @@ function createStatusItem(project) {
     chip.textContent = status.label;
 
     const paragraph = document.createElement('p');
-    paragraph.innerHTML = `<strong>${escapeHtml(project.name || 'Untitled Project')}:</strong> ${escapeHtml(project.description || '')}`;
+    paragraph.className = 'status-description';
+    const strong = document.createElement('strong');
+    strong.textContent = `${project.name || 'Untitled Project'}: `;
+    paragraph.append(strong, document.createTextNode(project.description || ''));
+
+    let statusToggle = null;
+    if ((project.description || '').length > 120) {
+        paragraph.classList.add('is-collapsed');
+        statusToggle = document.createElement('button');
+        statusToggle.type = 'button';
+        statusToggle.className = 'status-read-more';
+        statusToggle.textContent = 'View more';
+        statusToggle.addEventListener('click', () => {
+            const expanded = paragraph.classList.toggle('is-expanded');
+            statusToggle.textContent = expanded ? 'View less' : 'View more';
+        });
+    }
 
     li.append(chip, paragraph);
+    if (statusToggle) {
+        li.append(statusToggle);
+    }
 
     const linkData = getProjectLink(project);
     if (linkData.url) {

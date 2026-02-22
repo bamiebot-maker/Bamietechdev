@@ -362,38 +362,29 @@ body {
 
 .hero-visual {
     position: relative;
-    min-height: 430px;
+    min-height: 470px;
     display: grid;
     place-items: center;
+    align-items: end;
+    padding-top: 1rem;
 }
 
 .avatar-frame {
-    width: min(360px, 82vw);
+    width: min(390px, 85vw);
     aspect-ratio: 1;
-    border-radius: 28% 72% 67% 33% / 30% 30% 70% 70%;
+    border-radius: 28px;
     background: linear-gradient(145deg, rgba(255, 255, 255, 0.88), rgba(0, 200, 255, 0.18));
     border: 1px solid rgba(255, 255, 255, 0.92);
     box-shadow: var(--shadow-strong);
     overflow: hidden;
-    animation: morph 9s linear infinite alternate;
-}
-
-@keyframes morph {
-    0% {
-        border-radius: 28% 72% 67% 33% / 30% 30% 70% 70%;
-    }
-    50% {
-        border-radius: 58% 42% 35% 65% / 47% 63% 37% 53%;
-    }
-    100% {
-        border-radius: 42% 58% 63% 37% / 63% 35% 65% 37%;
-    }
+    position: relative;
 }
 
 .profile-image {
     width: 100%;
     height: 100%;
     object-fit: cover;
+    object-position: center top;
 }
 
 .orbit {
@@ -411,37 +402,37 @@ body {
 }
 
 .orbit-one {
-    top: 8%;
-    right: 2%;
+    top: 6%;
+    right: 0;
 }
 
 .orbit-two {
     bottom: 12%;
-    left: 2%;
+    left: 0;
     animation-delay: -1.3s;
 }
 
 .orbit-three {
     top: 55%;
-    right: -2%;
+    right: -4%;
     animation-delay: -2.6s;
 }
 
 .orbit-four {
-    top: -2%;
-    left: 4%;
+    top: -1%;
+    left: 2%;
     animation-delay: -0.8s;
 }
 
 .orbit-five {
     bottom: -2%;
-    right: 18%;
+    right: 15%;
     animation-delay: -1.8s;
 }
 
 .orbit-six {
-    bottom: 34%;
-    left: -6%;
+    bottom: 32%;
+    left: -8%;
     animation-delay: -3.1s;
 }
 
@@ -687,6 +678,37 @@ body {
     margin-bottom: 0.95rem;
 }
 
+.project-description {
+    margin-bottom: 0.65rem;
+}
+
+.project-description.is-collapsed {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
+    overflow: hidden;
+}
+
+.project-description.is-expanded {
+    display: block;
+}
+
+.project-read-more {
+    border: none;
+    background: rgba(0, 200, 255, 0.15);
+    color: #0b4e67;
+    border-radius: 999px;
+    padding: 0.24rem 0.6rem;
+    font-size: 0.76rem;
+    font-weight: 700;
+    margin-bottom: 0.8rem;
+    cursor: pointer;
+}
+
+.project-read-more:hover {
+    background: rgba(0, 200, 255, 0.28);
+}
+
 .project-tags {
     display: flex;
     flex-wrap: wrap;
@@ -781,6 +803,17 @@ body {
     color: var(--ink-soft);
 }
 
+.status-description.is-collapsed {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    overflow: hidden;
+}
+
+.status-description.is-expanded {
+    display: block;
+}
+
 .status-link {
     margin-top: 0.55rem;
     display: inline-flex;
@@ -796,6 +829,22 @@ body {
 
 .status-link:hover {
     background: rgba(0, 200, 255, 0.28);
+}
+
+.status-read-more {
+    margin-top: 0.45rem;
+    border: none;
+    background: rgba(0, 200, 255, 0.15);
+    color: #0b4e67;
+    border-radius: 999px;
+    padding: 0.24rem 0.6rem;
+    font-size: 0.75rem;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.status-read-more:hover {
+    background: rgba(0, 200, 255, 0.25);
 }
 
 .availability-list li {
@@ -1245,6 +1294,11 @@ body {
         padding-top: 7.5rem;
     }
 
+    .hero-visual {
+        min-height: 380px;
+        align-items: center;
+    }
+
     .hero-metrics {
         grid-template-columns: 1fr;
     }
@@ -1255,6 +1309,11 @@ body {
 
     .orbit-six {
         left: 2%;
+    }
+
+    .orbit-five,
+    .orbit-six {
+        display: none;
     }
 
     .skills-grid {
@@ -1304,7 +1363,8 @@ body {
     }
 
     .avatar-frame {
-        width: min(300px, 86vw);
+        width: min(320px, 90vw);
+        border-radius: 20px;
     }
 
     .skills-grid {
@@ -1312,7 +1372,33 @@ body {
     }
 
     .project-image {
-        height: 205px;
+        height: 170px;
+    }
+
+    .project-content {
+        padding: 0.85rem;
+    }
+
+    .project-title-row h3 {
+        font-size: 1.08rem;
+    }
+
+    .project-track {
+        font-size: 0.69rem;
+    }
+
+    .project-content p {
+        font-size: 0.88rem;
+    }
+
+    .tag {
+        font-size: 0.71rem;
+        padding: 0.22rem 0.52rem;
+    }
+
+    .project-read-more,
+    .status-read-more {
+        font-size: 0.71rem;
     }
 
     .floating-cta,
