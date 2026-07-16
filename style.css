@@ -1521,6 +1521,10 @@ body {
         grid-template-columns: 1fr;
     }
 
+    .hero-visual {
+        order: -1;
+    }
+
     .status-grid,
     .achievement-grid,
     .education-grid,
