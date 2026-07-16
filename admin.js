@@ -1,4 +1,4 @@
-﻿const ADMIN_CREDENTIALS = {
+const ADMIN_CREDENTIALS = {
     username: 'admin',
     password: 'admin123'
 };
@@ -27,10 +27,12 @@ document.addEventListener('DOMContentLoaded', () => {
         message: document.getElementById('admin-message'),
         projectsEditor: document.getElementById('projects-editor'),
         achievementsEditor: document.getElementById('achievements-editor'),
+        experienceEditor: document.getElementById('experience-editor'),
         educationEditor: document.getElementById('education-editor'),
         saveAll: document.getElementById('save-all'),
         addProject: document.getElementById('add-project'),
         addAchievement: document.getElementById('add-achievement'),
+        addExperience: document.getElementById('add-experience'),
         addEducation: document.getElementById('add-education'),
         resetDefaults: document.getElementById('reset-defaults'),
         exportJson: document.getElementById('export-json'),
@@ -68,13 +70,18 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     refs.addProject?.addEventListener('click', () => {
-        state.projects.push(createBlankProject(store));
+        state.projects.unshift(createBlankProject(store));
         renderProjectsEditor();
     });
 
     refs.addAchievement?.addEventListener('click', () => {
         state.achievements.push(createBlankAchievement(store));
         renderAchievementsEditor();
+    });
+
+    refs.addExperience?.addEventListener('click', () => {
+        state.experience.push(createBlankExperience(store));
+        renderExperienceEditor();
     });
 
     refs.addEducation?.addEventListener('click', () => {
@@ -102,6 +109,17 @@ document.addEventListener('DOMContentLoaded', () => {
         const id = removeBtn.getAttribute('data-remove-achievement');
         state.achievements = state.achievements.filter((item) => item.id !== id);
         renderAchievementsEditor();
+    });
+
+    refs.experienceEditor?.addEventListener('click', (event) => {
+        const removeBtn = event.target.closest('[data-remove-experience]');
+        if (!removeBtn) {
+            return;
+        }
+
+        const id = removeBtn.getAttribute('data-remove-experience');
+        state.experience = state.experience.filter((item) => item.id !== id);
+        renderExperienceEditor();
     });
 
     refs.educationEditor?.addEventListener('click', (event) => {
@@ -181,6 +199,7 @@ document.addEventListener('DOMContentLoaded', () => {
         populateTopFields(state);
         renderProjectsEditor();
         renderAchievementsEditor();
+        renderExperienceEditor();
         renderEducationEditor();
     }
 
@@ -283,6 +302,52 @@ document.addEventListener('DOMContentLoaded', () => {
             `;
 
             refs.achievementsEditor.append(card);
+        });
+    }
+
+    function renderExperienceEditor() {
+        if (!refs.experienceEditor) {
+            return;
+        }
+
+        refs.experienceEditor.textContent = '';
+
+        if (!state.experience || !state.experience.length) {
+            refs.experienceEditor.append(createEmptyEditorState('No experience added yet.'));
+            return;
+        }
+
+        state.experience.forEach((item, index) => {
+            const card = document.createElement('article');
+            card.className = 'editor-card experience-editor';
+            card.dataset.id = item.id;
+
+            card.innerHTML = `
+                <div class="editor-card-head">
+                    <h3>Experience ${index + 1}</h3>
+                    <button type="button" class="remove-btn" data-remove-experience="${escapeHtml(item.id)}">Remove</button>
+                </div>
+                <div class="editor-grid">
+                    <label class="field">
+                        <span>Role</span>
+                        <input type="text" data-key="role" value="${escapeHtml(item.role)}">
+                    </label>
+                    <label class="field">
+                        <span>Company</span>
+                        <input type="text" data-key="company" value="${escapeHtml(item.company)}">
+                    </label>
+                    <label class="field">
+                        <span>Duration</span>
+                        <input type="text" data-key="duration" value="${escapeHtml(item.duration)}">
+                    </label>
+                    <label class="field full">
+                        <span>Bullets (one per line)</span>
+                        <textarea rows="4" data-key="bullets">${escapeHtml((item.bullets || []).join('\n'))}</textarea>
+                    </label>
+                </div>
+            `;
+
+            refs.experienceEditor.append(card);
         });
     }
 
@@ -471,6 +536,14 @@ function collectStateFromForm(store) {
         description: getFieldValue(card, 'description')
     })).filter((item) => item.title);
 
+    draft.experience = Array.from(document.querySelectorAll('.experience-editor')).map((card) => ({
+        id: card.dataset.id || store.buildId('experience'),
+        role: getFieldValue(card, 'role'),
+        company: getFieldValue(card, 'company'),
+        duration: getFieldValue(card, 'duration'),
+        bullets: getFieldValue(card, 'bullets').split('\n').map((line) => line.trim()).filter(Boolean)
+    })).filter((item) => item.role);
+
     draft.education = Array.from(document.querySelectorAll('.education-editor')).map((card) => ({
         id: card.dataset.id || store.buildId('education'),
         icon: getFieldValue(card, 'icon'),
@@ -506,6 +579,16 @@ function createBlankAchievement(store) {
         id: store.buildId('achievement'),
         title: '',
         description: ''
+    };
+}
+
+function createBlankExperience(store) {
+    return {
+        id: store.buildId('experience'),
+        role: '',
+        company: '',
+        duration: '',
+        bullets: []
     };
 }
 

@@ -1,4 +1,4 @@
-﻿const STATUS_META = {
+const STATUS_META = {
     live: {
         label: 'Live',
         className: 'status-live',
@@ -16,10 +16,53 @@
     }
 };
 
-const PROJECT_PREVIEW_COUNT = 7;
+const PROJECT_PRIORITY_ORDER = [
+    'spoovault',
+    'mynavio',
+    'abovert',
+    'cholerai',
+    'kestrelpay',
+    'silentcall',
+    'push-or-pass'
+];
+
+const PROJECT_PRIORITY_MAP = PROJECT_PRIORITY_ORDER.reduce((map, id, index) => {
+    map.set(id, index);
+    return map;
+}, new Map());
+
+function slugifyProjectValue(value) {
+    return String(value || '')
+        .toLowerCase()
+        .replace(/[^a-z0-9]+/g, '');
+}
+
+function getCanonicalProjectKey(project) {
+    const id = slugifyProjectValue(project && project.id);
+    const name = slugifyProjectValue(project && project.name);
+    const liveUrl = slugifyProjectValue(project && project.liveUrl);
+    const repoUrl = slugifyProjectValue(project && project.repoUrl);
+    const haystack = `${id} ${name} ${liveUrl} ${repoUrl}`;
+
+    if (haystack.includes('spoovault') || haystack.includes('spoolvault')) return 'spoovault';
+    if (haystack.includes('mynavio') || haystack.includes('myfudnavio')) return 'mynavio';
+    if (haystack.includes('abovert')) return 'abovert';
+    if (haystack.includes('cholerai') || haystack.includes('chorai')) return 'cholerai';
+    if (haystack.includes('kestrelpay')) return 'kestrelpay';
+    if (haystack.includes('silentcall')) return 'silentcall';
+    if (haystack.includes('pushorpass')) return 'push-or-pass';
+    if (haystack.includes('fudblo')) return 'fudblo';
+    return id || name;
+}
+
 let allProjects = [];
 let projectsExpanded = false;
 let isProjectsToggleBound = false;
+let achievementsExpanded = false;
+let educationExpanded = false;
+let viewportRerenderTimer = null;
+let latestContent = null;
+let heroMetricsSliderTimer = null;
 
 document.addEventListener('DOMContentLoaded', () => {
     const contentStore = window.PortfolioContentStore;
@@ -38,24 +81,66 @@ document.addEventListener('DOMContentLoaded', () => {
     bindContactForm(content.contact.email);
     bindImageFallbacks();
     updateYear();
+    bindViewportRerender();
 });
 
 function renderPortfolio(content) {
+    latestContent = content;
+    achievementsExpanded = false;
+    educationExpanded = false;
+
     renderBrand(content.profile.brandName);
     renderHero(content.profile, content.contact.resumeUrl);
     renderAbout(content.profile.aboutParagraphs);
     initializeProjects(content.projects);
-    renderStatus(content.projects, content.availability);
+    renderStatus(allProjects, content.availability);
+    renderExperience(content.experience);
     renderAchievements(content.achievements);
     renderEducation(content.education);
     renderContact(content.contact);
 }
 
 function initializeProjects(projects) {
-    allProjects = Array.isArray(projects) ? projects : [];
+    allProjects = orderProjectsForDisplay(Array.isArray(projects) ? projects : []);
     projectsExpanded = false;
     bindProjectsToggle();
     renderProjects();
+}
+
+function orderProjectsForDisplay(projects) {
+    return projects
+        .map((project, index) => ({
+            project,
+            index,
+            priority: PROJECT_PRIORITY_MAP.has(getCanonicalProjectKey(project))
+                ? PROJECT_PRIORITY_MAP.get(getCanonicalProjectKey(project))
+                : Number.MAX_SAFE_INTEGER
+        }))
+        .sort((a, b) => {
+            if (a.priority !== b.priority) {
+                return a.priority - b.priority;
+            }
+            return a.index - b.index;
+        })
+        .map((item) => item.project);
+}
+
+function bindViewportRerender() {
+    window.addEventListener('resize', () => {
+        if (!latestContent) {
+            return;
+        }
+
+        window.clearTimeout(viewportRerenderTimer);
+        viewportRerenderTimer = window.setTimeout(() => {
+            setupHeroMetricsSlider();
+            renderProjects();
+            renderStatus(allProjects, latestContent.availability || []);
+            renderExperience(latestContent.experience || []);
+            renderAchievements(latestContent.achievements || []);
+            renderEducation(latestContent.education || []);
+        }, 120);
+    });
 }
 
 function bindProjectsToggle() {
@@ -149,7 +234,7 @@ function renderHero(profile, resumeUrl) {
     }
 
     if (heroResumeLink) {
-        heroResumeLink.href = resumeUrl || 'assets/Ibrahim_Bamidele_Resume.pdf';
+        heroResumeLink.href = resumeUrl || 'assets/Ibrahim_Sobur_Bamidele_Resume.pdf';
     }
 
     if (heroMetrics) {
@@ -167,6 +252,118 @@ function renderHero(profile, resumeUrl) {
             heroMetrics.append(metric);
         });
     }
+
+    setupHeroMetricsSlider();
+}
+
+function setupHeroMetricsSlider() {
+    const heroMetrics = document.getElementById('hero-metrics');
+    const heroMetricsNav = document.getElementById('hero-metrics-nav');
+
+    if (!heroMetrics || !heroMetricsNav) {
+        return;
+    }
+
+    if (heroMetricsSliderTimer) {
+        window.clearInterval(heroMetricsSliderTimer);
+        heroMetricsSliderTimer = null;
+    }
+
+    heroMetricsNav.textContent = '';
+    heroMetrics.onscroll = null;
+    heroMetrics.ontouchstart = null;
+    heroMetrics.ontouchend = null;
+
+    const cards = Array.from(heroMetrics.querySelectorAll('li'));
+    const isMobile = window.matchMedia('(max-width: 820px)').matches;
+
+    if (!isMobile || cards.length <= 1) {
+        heroMetricsNav.style.display = 'none';
+        return;
+    }
+
+    let activeIndex = 0;
+
+    const getNearestIndex = () => {
+        const left = heroMetrics.scrollLeft;
+        let nearestIndex = 0;
+        let smallestDelta = Number.POSITIVE_INFINITY;
+
+        cards.forEach((card, index) => {
+            const delta = Math.abs(card.offsetLeft - left);
+            if (delta < smallestDelta) {
+                smallestDelta = delta;
+                nearestIndex = index;
+            }
+        });
+
+        return nearestIndex;
+    };
+
+    const setActiveDot = (index) => {
+        const dots = heroMetricsNav.querySelectorAll('.metric-dot');
+        dots.forEach((dot, dotIndex) => {
+            dot.classList.toggle('active', dotIndex === index);
+        });
+    };
+
+    const scrollToIndex = (index, behavior = 'smooth') => {
+        const safeIndex = Math.max(0, Math.min(index, cards.length - 1));
+        activeIndex = safeIndex;
+        heroMetrics.scrollTo({
+            left: cards[safeIndex].offsetLeft,
+            behavior
+        });
+        setActiveDot(safeIndex);
+    };
+
+    cards.forEach((_, index) => {
+        const dot = document.createElement('button');
+        dot.type = 'button';
+        dot.className = 'metric-dot';
+        dot.setAttribute('aria-label', `Show stat ${index + 1}`);
+        dot.addEventListener('click', () => {
+            scrollToIndex(index);
+        });
+        heroMetricsNav.append(dot);
+    });
+
+    heroMetricsNav.style.display = 'flex';
+    scrollToIndex(0, 'auto');
+
+    heroMetrics.onscroll = () => {
+        const nearest = getNearestIndex();
+        if (nearest !== activeIndex) {
+            activeIndex = nearest;
+            setActiveDot(nearest);
+        }
+    };
+
+    const startAutoSlide = () => {
+        if (heroMetricsSliderTimer) {
+            window.clearInterval(heroMetricsSliderTimer);
+        }
+
+        heroMetricsSliderTimer = window.setInterval(() => {
+            if (document.hidden) {
+                return;
+            }
+            scrollToIndex((activeIndex + 1) % cards.length);
+        }, 3200);
+    };
+
+    heroMetrics.ontouchstart = () => {
+        if (heroMetricsSliderTimer) {
+            window.clearInterval(heroMetricsSliderTimer);
+            heroMetricsSliderTimer = null;
+        }
+    };
+
+    heroMetrics.ontouchend = () => {
+        startAutoSlide();
+    };
+
+    startAutoSlide();
 }
 
 function renderAbout(aboutParagraphs) {
@@ -203,9 +400,10 @@ function renderProjects() {
         return;
     }
 
+    const previewCount = getPreviewCount({ desktop: 6, mobile: 4 });
     const visibleProjects = projectsExpanded
         ? allProjects
-        : allProjects.slice(0, PROJECT_PREVIEW_COUNT);
+        : allProjects.slice(0, previewCount);
 
     visibleProjects.forEach((project) => {
         const card = document.createElement('article');
@@ -254,7 +452,8 @@ function renderProjects() {
         description.textContent = project.description || '';
 
         let descriptionToggle = null;
-        if ((project.description || '').length > 145) {
+        const descriptionLimit = getPreviewCount({ desktop: 130, mobile: 95 });
+        if ((project.description || '').length > descriptionLimit) {
             description.classList.add('is-collapsed');
             descriptionToggle = document.createElement('button');
             descriptionToggle.type = 'button';
@@ -286,13 +485,13 @@ function renderProjects() {
     });
 
     if (projectsActions && toggleButton) {
-        if (allProjects.length <= PROJECT_PREVIEW_COUNT) {
+        if (allProjects.length <= previewCount) {
             projectsActions.style.display = 'none';
         } else {
             projectsActions.style.display = 'flex';
             toggleButton.textContent = projectsExpanded
                 ? 'Show Fewer Projects'
-                : `View More Projects (${allProjects.length - PROJECT_PREVIEW_COUNT}+)`;
+                : `View More Projects (${allProjects.length - previewCount}+)`;
         }
     }
 
@@ -353,39 +552,20 @@ function renderStatus(projects, availability) {
     liveList.textContent = '';
     availabilityList.textContent = '';
     timeline.textContent = '';
+    clearStatusPanelToggle(buildingList);
+    clearStatusPanelToggle(liveList);
+    clearStatusPanelToggle(availabilityList);
 
     const buildingProjects = projects.filter((project) => project.status === 'building' || project.status === 'pilot');
     const liveProjects = projects.filter((project) => project.status === 'live');
 
-    if (!buildingProjects.length) {
-        buildingList.append(createEmptyState('No active building/pilot project right now.'));
-    } else {
-        buildingProjects.forEach((project) => {
-            buildingList.append(createStatusItem(project));
-        });
-    }
+    renderStatusProjectList(buildingList, buildingProjects, 'No active building/pilot project right now.');
+    renderStatusProjectList(liveList, liveProjects, 'No live project listed yet.');
+    renderAvailabilityList(availabilityList, availability);
 
-    if (!liveProjects.length) {
-        liveList.append(createEmptyState('No live project listed yet.'));
-    } else {
-        liveProjects.forEach((project) => {
-            liveList.append(createStatusItem(project));
-        });
-    }
-
-    if (!availability.length) {
-        availabilityList.append(createEmptyState('Add your current availability from the admin panel.'));
-    } else {
-        availability.forEach((item) => {
-            const li = document.createElement('li');
-            li.textContent = item;
-            availabilityList.append(li);
-        });
-    }
-
-    timeline.append(createTimelineRow('Live', liveProjects.map((item) => item.name).join(', ') || 'No live project listed.', 'status-live'));
-    timeline.append(createTimelineRow('Building', projects.filter((item) => item.status === 'building').map((item) => item.name).join(', ') || 'No building project listed.', 'status-building'));
-    timeline.append(createTimelineRow('Pilot', projects.filter((item) => item.status === 'pilot').map((item) => item.name).join(', ') || 'No pilot project listed.', 'status-pilot'));
+    timeline.append(createTimelineRow('Live', summarizeProjectNames(liveProjects, 'No live project listed.'), 'status-live'));
+    timeline.append(createTimelineRow('Building', summarizeProjectNames(projects.filter((item) => item.status === 'building'), 'No building project listed.'), 'status-building'));
+    timeline.append(createTimelineRow('Pilot', summarizeProjectNames(projects.filter((item) => item.status === 'pilot'), 'No pilot project listed.'), 'status-pilot'));
 }
 
 function createStatusItem(project) {
@@ -402,8 +582,9 @@ function createStatusItem(project) {
     strong.textContent = `${project.name || 'Untitled Project'}: `;
     paragraph.append(strong, document.createTextNode(project.description || ''));
 
+    const statusDescriptionLimit = getPreviewCount({ desktop: 120, mobile: 90 });
     let statusToggle = null;
-    if ((project.description || '').length > 120) {
+    if ((project.description || '').length > statusDescriptionLimit) {
         paragraph.classList.add('is-collapsed');
         statusToggle = document.createElement('button');
         statusToggle.type = 'button';
@@ -434,6 +615,121 @@ function createStatusItem(project) {
     return li;
 }
 
+function renderStatusProjectList(listNode, projects, emptyMessage) {
+    if (!projects.length) {
+        listNode.append(createEmptyState(emptyMessage));
+        return;
+    }
+
+    const previewCount = getPreviewCount({ desktop: 4, mobile: 2 });
+    let expanded = false;
+
+    const paint = () => {
+        listNode.textContent = '';
+        const visible = expanded ? projects : projects.slice(0, previewCount);
+        visible.forEach((project) => {
+            listNode.append(createStatusItem(project));
+        });
+    };
+
+    paint();
+
+    if (projects.length > previewCount) {
+        const toggle = createStatusPanelToggle({
+            hiddenCount: projects.length - previewCount,
+            onToggle: (nextExpanded) => {
+                expanded = nextExpanded;
+                paint();
+            }
+        });
+        mountStatusPanelToggle(listNode, toggle);
+    }
+}
+
+function renderAvailabilityList(listNode, availability) {
+    const items = Array.isArray(availability) ? availability : [];
+
+    if (!items.length) {
+        listNode.append(createEmptyState('Add your current availability from the admin panel.'));
+        return;
+    }
+
+    const previewCount = getPreviewCount({ desktop: 3, mobile: 2 });
+    let expanded = false;
+
+    const paint = () => {
+        listNode.textContent = '';
+        const visible = expanded ? items : items.slice(0, previewCount);
+        visible.forEach((item) => {
+            const li = document.createElement('li');
+            li.textContent = item;
+            listNode.append(li);
+        });
+    };
+
+    paint();
+
+    if (items.length > previewCount) {
+        const toggle = createStatusPanelToggle({
+            hiddenCount: items.length - previewCount,
+            onToggle: (nextExpanded) => {
+                expanded = nextExpanded;
+                paint();
+            }
+        });
+        mountStatusPanelToggle(listNode, toggle);
+    }
+}
+
+function summarizeProjectNames(projects, fallback) {
+    if (!projects.length) {
+        return fallback;
+    }
+
+    const preview = projects.slice(0, 4).map((item) => item.name).join(', ');
+    const remaining = projects.length - 4;
+    if (remaining <= 0) {
+        return preview;
+    }
+
+    return `${preview} +${remaining} more`;
+}
+
+function createStatusPanelToggle({ hiddenCount, onToggle }) {
+    const button = document.createElement('button');
+    button.type = 'button';
+    button.className = 'section-see-more status-panel-toggle';
+
+    let expanded = false;
+    const updateLabel = () => {
+        button.textContent = expanded ? 'Show less' : `See more (${hiddenCount})`;
+    };
+
+    updateLabel();
+
+    button.addEventListener('click', () => {
+        expanded = !expanded;
+        onToggle(expanded);
+        updateLabel();
+    });
+
+    return button;
+}
+
+function mountStatusPanelToggle(listNode, toggleButton) {
+    clearStatusPanelToggle(listNode);
+    const panel = listNode.closest('.status-panel');
+    if (!panel) {
+        return;
+    }
+    panel.append(toggleButton);
+}
+
+function clearStatusPanelToggle(listNode) {
+    const panel = listNode.closest('.status-panel');
+    panel?.querySelector('.status-panel-toggle')?.remove();
+}
+
 function createTimelineRow(label, description, statusClass) {
     const row = document.createElement('div');
     row.className = 'timeline-row';
@@ -456,13 +752,19 @@ function renderAchievements(achievements) {
     }
 
     achievementGrid.textContent = '';
+    clearSectionToggle('achievements-toggle-row');
 
     if (!achievements.length) {
         achievementGrid.append(createEmptyState('No achievements yet. Add one from the admin panel.'));
         return;
     }
 
-    achievements.forEach((achievement) => {
+    const previewCount = getPreviewCount({ desktop: 6, mobile: 4 });
+    const visibleAchievements = achievementsExpanded
+        ? achievements
+        : achievements.slice(0, previewCount);
+
+    visibleAchievements.forEach((achievement) => {
         const card = document.createElement('article');
         card.className = 'achievement-card';
         card.setAttribute('data-reveal', '');
@@ -476,6 +778,19 @@ function renderAchievements(achievements) {
         card.append(title, description);
         achievementGrid.append(card);
     });
+
+    if (achievements.length > previewCount) {
+        const toggleRow = createSectionToggleRow({
+            id: 'achievements-toggle-row',
+            expanded: achievementsExpanded,
+            hiddenCount: achievements.length - previewCount,
+            onToggle: () => {
+                achievementsExpanded = !achievementsExpanded;
+                renderAchievements(achievements);
+            }
+        });
+        achievementGrid.after(toggleRow);
+    }
 }
 
 function renderEducation(educationItems) {
@@ -485,13 +800,19 @@ function renderEducation(educationItems) {
     }
 
     educationGrid.textContent = '';
+    clearSectionToggle('education-toggle-row');
 
     if (!educationItems.length) {
         educationGrid.append(createEmptyState('No education items yet.'));
         return;
     }
 
-    educationItems.forEach((item) => {
+    const previewCount = getPreviewCount({ desktop: 6, mobile: 4 });
+    const visibleEducation = educationExpanded
+        ? educationItems
+        : educationItems.slice(0, previewCount);
+
+    visibleEducation.forEach((item) => {
         const card = document.createElement('article');
         card.className = 'education-card';
         card.setAttribute('data-reveal', '');
@@ -515,6 +836,74 @@ function renderEducation(educationItems) {
         wrap.append(title, institution, duration);
         card.append(icon, wrap);
         educationGrid.append(card);
+    });
+
+    if (educationItems.length > previewCount) {
+        const toggleRow = createSectionToggleRow({
+            id: 'education-toggle-row',
+            expanded: educationExpanded,
+            hiddenCount: educationItems.length - previewCount,
+            onToggle: () => {
+                educationExpanded = !educationExpanded;
+                renderEducation(educationItems);
+            }
+        });
+        educationGrid.after(toggleRow);
+    }
+}
+
+function renderExperience(experienceItems) {
+    const timeline = document.getElementById('experience-timeline');
+    if (!timeline) {
+        return;
+    }
+
+    timeline.textContent = '';
+
+    const items = Array.isArray(experienceItems) ? experienceItems : [];
+
+    if (!items.length) {
+        timeline.append(createEmptyState('No professional experience yet. Add one from the admin panel.'));
+        return;
+    }
+
+    items.forEach((item) => {
+        const timelineItem = document.createElement('article');
+        timelineItem.className = 'timeline-item';
+        timelineItem.setAttribute('data-reveal', '');
+        timelineItem.classList.add('is-visible');
+
+        const head = document.createElement('div');
+        head.className = 'timeline-item-head';
+
+        const textLeft = document.createElement('div');
+        const title = document.createElement('h3');
+        title.className = 'timeline-item-title';
+        title.textContent = item.role || 'Untitled Role';
+
+        const company = document.createElement('span');
+        company.className = 'timeline-item-company';
+        company.textContent = item.company || '';
+        
+        textLeft.append(title, company);
+
+        const duration = document.createElement('span');
+        duration.className = 'timeline-item-duration';
+        duration.textContent = item.duration || '';
+
+        head.append(textLeft, duration);
+
+        const bulletsList = document.createElement('ul');
+        bulletsList.className = 'timeline-item-bullets';
+
+        (item.bullets || []).forEach((bulletText) => {
+            const li = document.createElement('li');
+            li.textContent = bulletText;
+            bulletsList.append(li);
+        });
+
+        timelineItem.append(head, bulletsList);
+        timeline.append(timelineItem);
     });
 }
 
@@ -799,6 +1188,29 @@ function updateYear() {
     if (yearNode) {
         yearNode.textContent = String(new Date().getFullYear());
     }
+}
+
+function getPreviewCount({ desktop, mobile }) {
+    return window.matchMedia('(max-width: 820px)').matches ? mobile : desktop;
+}
+
+function createSectionToggleRow({ id, expanded, hiddenCount, onToggle }) {
+    const row = document.createElement('div');
+    row.className = 'section-toggle-row';
+    row.id = id;
+
+    const button = document.createElement('button');
+    button.type = 'button';
+    button.className = 'section-see-more';
+    button.textContent = expanded ? 'Show less' : `See more (${hiddenCount})`;
+    button.addEventListener('click', onToggle);
+
+    row.append(button);
+    return row;
+}
+
+function clearSectionToggle(id) {
+    document.getElementById(id)?.remove();
 }
 
 function createEmptyState(message) {

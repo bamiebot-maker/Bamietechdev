@@ -1,5 +1,10 @@
-﻿(() => {
-    const STORAGE_KEY = 'bamietech_portfolio_content_v3';
+(() => {
+    const STORAGE_KEY = 'bamietech_portfolio_content';
+    const LEGACY_STORAGE_KEYS = [
+        'bamietech_portfolio_content_v3',
+        'bamietech_portfolio_content_v2',
+        'bamietech_portfolio_content_v1'
+    ];
 
     const DEFAULT_CONTENT = {
         profile: {
@@ -7,10 +12,10 @@
             fullName: 'Ibrahim Sobur Bamidele',
             heroTag: 'Open to product + Web3 collaborations',
             roleLine: 'Software Engineer | Web Developer | AI Prompt Engineer | Web3 Solidity Developer',
-            heroDescription: 'I build internet products with practical blockchain utility, secure architecture, and user flows that feel fast and clear on every device.',
+            heroDescription: 'I build secure, high-performance web applications, robust APIs, and interactive user experiences across Web2 and Web3 with user flows that feel fast and clear on every device.',
             aboutParagraphs: [
-                'I am Ibrahim Sobur Bamidele, a software engineer focused on shipping useful systems where backend logic, frontend clarity, and Web3 workflows connect cleanly.',
-                'I work across web apps, automation, prompt systems, and chain-based products. Every build targets reliability first, then scale.',
+                'I am Ibrahim Sobur Bamidele, a software engineer from Ekiti State, Nigeria. I lived in Akure and currently study in Dutse while building useful systems across Web2 and Web3.',
+                'I focus on shipping practical products where backend logic, frontend clarity, and blockchain workflows connect cleanly. Every build targets reliability first, then scale.',
                 'Outside core development, I mentor peers and lead teams in hackathons and community technical spaces.'
             ],
             stats: [
@@ -37,7 +42,7 @@
                 label: 'bamiebot-maker',
                 url: 'https://github.com/bamiebot-maker/'
             },
-            resumeUrl: 'assets/Ibrahim_Bamidele_Resume.pdf'
+            resumeUrl: 'assets/Ibrahim_Sobur_Bamidele_Resume.pdf'
         },
         availability: [
             'Freelance: Open for product builds and feature delivery.',
@@ -139,7 +144,7 @@
                 description: 'Privacy-focused communication project currently in active build phase.',
                 status: 'building',
                 track: 'Privacy Communication',
-                imageUrl: 'img/projects/silentcall.jpg',
+                imageUrl: 'img/projects/silentcall.svg',
                 liveUrl: '',
                 repoUrl: 'https://github.com/bamiebot-maker/silentcall',
                 tags: ['Building', 'Privacy', 'Communication']
@@ -230,6 +235,36 @@
                 id: 'secretary-general-msso',
                 title: 'Secretary General, MSSO B-Zone',
                 description: 'Coordinated administration and leadership execution for zonal operations.'
+            },
+            {
+                id: 'ach-blockdag',
+                title: 'Winner, BlockDAG Buildathon',
+                description: 'First place winner in the BlockDAG ecosystem buildathon.'
+            },
+            {
+                id: 'ach-devcrib-top2',
+                title: 'Top 2 Developer – Devcrib',
+                description: 'Recognized as one of the top 2 active developer community members.'
+            },
+            {
+                id: 'ach-se-hub',
+                title: 'Software Engineering (Programming Hub)',
+                description: 'Certified software engineering graduate from Programming Hub.'
+            },
+            {
+                id: 'ach-tribex',
+                title: 'Tribe X Full Stack Dev Training',
+                description: 'Graduated from intensive Tribe X web development bootcamp.'
+            },
+            {
+                id: 'ach-huawei',
+                title: 'Huawei AI Bootcamp',
+                description: 'Completed specialized AI concepts and models training.'
+            },
+            {
+                id: 'ach-boosha',
+                title: 'Boosha Certification',
+                description: 'Certified blockchain developer and participant.'
             }
         ],
         education: [
@@ -275,6 +310,40 @@
                 institution: 'AI Education Platform',
                 duration: '2025'
             }
+        ],
+        experience: [
+            {
+                id: 'exp-kindlepath',
+                role: 'Software Developer',
+                company: 'KindlePath Initiative',
+                duration: '2024',
+                bullets: [
+                    'Developed and maintained modern, highly responsive web applications.',
+                    'Collaborated with cross-functional teams to build custom software projects.',
+                    'Implemented frontend solutions and optimized application features for performance.'
+                ]
+            },
+            {
+                id: 'exp-northdemy',
+                role: 'SIWES Intern (Software Development)',
+                company: 'Northdemy Limited',
+                duration: '2025 - Present',
+                bullets: [
+                    'Currently undergoing intensive industrial software engineering training.',
+                    'Actively contributing to full-stack software development pipelines.',
+                    'Supporting web application builds and integrating AI-related workflows.'
+                ]
+            },
+            {
+                id: 'exp-drips-grantfox',
+                role: 'Open Source Contributor',
+                company: 'Drips & Grantfox',
+                duration: '2023 - Present',
+                bullets: [
+                    'Contributed to decentralized funding protocols and ecosystem infrastructure tools.',
+                    'Collaborated with global developer communities on code reviews, features, and optimization.'
+                ]
+            }
         ]
     };
 
@@ -283,6 +352,67 @@
     const buildId = (prefix = 'item') => `${prefix}-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`;
 
     const ensureArray = (value) => (Array.isArray(value) ? value : []);
+
+    const slugify = (value) => String(value || '')
+        .toLowerCase()
+        .replace(/[^a-z0-9]+/g, '');
+
+    const getCanonicalProjectKey = (project) => {
+        const id = slugify(project && project.id);
+        const name = slugify(project && project.name);
+        const liveUrl = slugify(project && project.liveUrl);
+        const repoUrl = slugify(project && project.repoUrl);
+        const haystack = `${id} ${name} ${liveUrl} ${repoUrl}`;
+
+        if (haystack.includes('spoovault') || haystack.includes('spoolvault')) return 'spoovault';
+        if (haystack.includes('mynavio') || haystack.includes('myfudnavio')) return 'mynavio';
+        if (haystack.includes('abovert')) return 'abovert';
+        if (haystack.includes('cholerai') || haystack.includes('chorai')) return 'cholerai';
+        if (haystack.includes('kestrelpay')) return 'kestrelpay';
+        if (haystack.includes('silentcall')) return 'silentcall';
+        if (haystack.includes('pushorpass')) return 'push-or-pass';
+        if (haystack.includes('fudblo')) return 'fudblo';
+        return '';
+    };
+
+    const ensureOriginInAboutParagraphs = (paragraphs) => {
+        const items = ensureArray(paragraphs).filter(Boolean).slice(0, 3);
+        const originLine = 'I am Ibrahim Sobur Bamidele, a software engineer from Ekiti State, Nigeria. I lived in Akure and currently study in Dutse while building useful systems across Web2 and Web3.';
+        const hasOrigin = items.some((item) => {
+            const normalized = String(item || '').toLowerCase();
+            return normalized.includes('ekiti') || normalized.includes('akure') || normalized.includes('dutse');
+        });
+
+        if (hasOrigin) {
+            return items;
+        }
+
+        return [originLine, ...items].slice(0, 3);
+    };
+
+    const sanitizeProjects = (projects) => ensureArray(projects)
+        .filter((project) => project && getCanonicalProjectKey(project) !== 'fudblo');
+
+    const getStoredRawContent = () => {
+        const candidateKeys = [STORAGE_KEY, ...LEGACY_STORAGE_KEYS];
+        for (const key of candidateKeys) {
+            const raw = localStorage.getItem(key);
+            if (!raw) {
+                continue;
+            }
+
+            if (key !== STORAGE_KEY) {
+                localStorage.setItem(STORAGE_KEY, raw);
+            }
+
+            return raw;
+        }
+        return null;
+    };
+
+    const clearLegacyStorage = () => {
+        LEGACY_STORAGE_KEYS.forEach((key) => localStorage.removeItem(key));
+    };
 
     const normalizeProjectStatus = (status) => {
         const safe = String(status || '').toLowerCase();
@@ -304,8 +434,8 @@
             ...base.profile,
             ...profile,
             aboutParagraphs: useCustomAbout
-                ? ensureArray(profile.aboutParagraphs).filter(Boolean).slice(0, 3)
-                : deepClone(base.profile.aboutParagraphs),
+                ? ensureOriginInAboutParagraphs(profile.aboutParagraphs)
+                : ensureOriginInAboutParagraphs(base.profile.aboutParagraphs),
             stats: useCustomStats
                 ? ensureArray(profile.stats).slice(0, 3).map((item) => ({
                     value: (item && item.value) || '',
@@ -341,18 +471,27 @@
             : deepClone(DEFAULT_CONTENT.availability);
 
         base.projects = Array.isArray(data.projects)
-            ? ensureArray(data.projects).map((project) => ({
-                id: project.id || buildId('project'),
-                name: project.name || 'Untitled Project',
-                description: project.description || '',
-                status: normalizeProjectStatus(project.status),
-                track: project.track || '',
-                imageUrl: project.imageUrl || '',
-                liveUrl: project.liveUrl || '',
-                repoUrl: project.repoUrl || '',
-                tags: ensureArray(project.tags).filter(Boolean)
-            }))
-            : deepClone(DEFAULT_CONTENT.projects);
+            ? sanitizeProjects(data.projects).map((project) => {
+                const canonicalKey = getCanonicalProjectKey(project);
+                const id = canonicalKey || project.id || buildId('project');
+                const imageUrl = project.imageUrl || '';
+                const normalizedImageUrl = id === 'silentcall' && (!imageUrl || imageUrl === 'img/projects/silentcall.jpg')
+                    ? 'img/projects/silentcall.svg'
+                    : imageUrl;
+
+                return {
+                    id,
+                    name: project.name || 'Untitled Project',
+                    description: project.description || '',
+                    status: normalizeProjectStatus(project.status),
+                    track: project.track || '',
+                    imageUrl: normalizedImageUrl,
+                    liveUrl: project.liveUrl || '',
+                    repoUrl: project.repoUrl || '',
+                    tags: ensureArray(project.tags).filter(Boolean)
+                };
+            })
+            : sanitizeProjects(deepClone(DEFAULT_CONTENT.projects));
 
         base.achievements = Array.isArray(data.achievements)
             ? ensureArray(data.achievements).map((item) => ({
@@ -372,16 +511,34 @@
             }))
             : deepClone(DEFAULT_CONTENT.education);
 
+        base.experience = Array.isArray(data.experience)
+            ? ensureArray(data.experience).map((item) => ({
+                id: item.id || buildId('experience'),
+                role: item.role || '',
+                company: item.company || '',
+                duration: item.duration || '',
+                bullets: ensureArray(item.bullets).filter(Boolean)
+            }))
+            : deepClone(DEFAULT_CONTENT.experience);
+
         return base;
     };
 
     const getContent = () => {
         try {
-            const raw = localStorage.getItem(STORAGE_KEY);
+            const raw = getStoredRawContent();
             if (!raw) {
                 return deepClone(DEFAULT_CONTENT);
             }
-            return normalizeContent(JSON.parse(raw));
+
+            const normalized = normalizeContent(JSON.parse(raw));
+            const serialized = JSON.stringify(normalized);
+            if (serialized !== raw) {
+                localStorage.setItem(STORAGE_KEY, serialized);
+                clearLegacyStorage();
+            }
+
+            return normalized;
         } catch (error) {
             console.error('Failed to parse portfolio content from storage:', error);
             return deepClone(DEFAULT_CONTENT);
@@ -391,16 +548,19 @@
     const saveContent = (content) => {
         const normalized = normalizeContent(content);
         localStorage.setItem(STORAGE_KEY, JSON.stringify(normalized));
+        clearLegacyStorage();
         return normalized;
     };
 
     const resetContent = () => {
         localStorage.removeItem(STORAGE_KEY);
+        clearLegacyStorage();
         return deepClone(DEFAULT_CONTENT);
     };
 
     window.PortfolioContentStore = {
         STORAGE_KEY,
+        LEGACY_STORAGE_KEYS: deepClone(LEGACY_STORAGE_KEYS),
         DEFAULT_CONTENT: deepClone(DEFAULT_CONTENT),
         getContent,
         saveContent,

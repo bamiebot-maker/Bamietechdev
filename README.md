@@ -50,7 +50,7 @@ portfolio-website/
 ├── style.css           # All styles
 ├── script.js           # JavaScript functionality
 ├── assets/
-│   └── Ibrahim_Bamidele_Resume.pdf  # Resume file
+│   └── Ibrahim_Sobur_Bamidele_Resume.pdf  # Resume file
 └── img/
     ├── bamie.jpg                      # Profile photo
     └── projects/
@@ -78,7 +78,7 @@ img/bamie.jpg - Your profile photo
 
 img/projects/ - Project screenshots
 
-Add your resume as assets/Ibrahim_Bamidele_Resume.pdf
+Add your resume as assets/Ibrahim_Sobur_Bamidele_Resume.pdf
 
 Open index.html in your browser to view the website locally
 
@@ -157,7 +157,7 @@ Project images: img/projects/ folder
 📞 Contact Information
 Name: Ibrahim Sobur Bamidele
 
-Alias: Bamietech Dev
+Alias: Bamietech Dev.
 
 Email: bamiebot@gmail.com
 
