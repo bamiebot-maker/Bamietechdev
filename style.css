@@ -1325,11 +1325,11 @@ body {
 }
 
 .skills-timeline-content {
-    background: var(--surface);
-    border: 1px solid rgba(255, 255, 255, 0.78);
+    background: var(--surface-solid);
+    border: 1px solid rgba(4, 22, 46, 0.08);
     border-radius: var(--radius-md);
     padding: 1.2rem 1.4rem;
-    box-shadow: var(--shadow-soft);
+    box-shadow: 0 10px 30px rgba(0, 74, 127, 0.05);
     transition: var(--transition);
 }
 
@@ -1443,12 +1443,12 @@ body {
 
 /* GitHub Stats Styles */
 .github-stats {
-    background: var(--surface);
-    border: 1px solid rgba(255, 255, 255, 0.08);
+    background: var(--surface-solid);
+    border: 1px solid rgba(4, 22, 46, 0.08);
     border-radius: var(--radius-md);
     padding: 1.5rem 2rem;
     margin-top: 2rem;
-    box-shadow: var(--shadow-soft);
+    box-shadow: 0 10px 30px rgba(0, 74, 127, 0.05);
 }
 
 .github-stats h3 {
@@ -1466,17 +1466,25 @@ body {
     flex-direction: column;
     gap: 1.5rem;
     align-items: center;
+    width: 100%;
+}
+
+.github-chart-wrapper {
+    width: 100%;
+    overflow-x: auto;
+    padding-bottom: 0.5rem;
+    border-radius: var(--radius-sm);
+    background: rgba(4, 22, 46, 0.02);
+    border: 1px solid rgba(4, 22, 46, 0.05);
 }
 
 .github-chart-img {
+    min-width: 720px;
     width: 100%;
-    max-width: 780px;
     height: auto;
-    filter: drop-shadow(0 2px 8px rgba(0, 200, 255, 0.15));
-    border-radius: var(--radius-sm);
+    display: block;
     padding: 0.8rem;
-    background: rgba(0, 0, 0, 0.2);
-    border: 1px solid rgba(255, 255, 255, 0.05);
+    filter: drop-shadow(0 2px 6px rgba(0, 74, 127, 0.06));
 }
 
 .github-cards {
@@ -1489,11 +1497,14 @@ body {
 .github-stats-card,
 .github-langs-card {
     width: 100%;
+    max-width: 495px;
     height: auto;
-    background: rgba(0, 0, 0, 0.2);
-    border: 1px solid rgba(255, 255, 255, 0.05);
+    justify-self: center;
+    background: var(--surface-solid);
+    border: 1px solid rgba(4, 22, 46, 0.08);
     border-radius: var(--radius-md);
     padding: 0.5rem;
+    box-shadow: 0 10px 30px rgba(0, 74, 127, 0.05);
     transition: var(--transition);
 }
 
