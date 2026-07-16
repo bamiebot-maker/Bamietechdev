@@ -11,11 +11,11 @@
             brandName: 'BamietechDev',
             fullName: 'Ibrahim Sobur Bamidele',
             heroTag: 'Open to product + Web3 collaborations',
-            roleLine: 'Software Engineer | Web Developer | AI Prompt Engineer | Web3 Solidity Developer',
-            heroDescription: 'I build secure, high-performance web applications, robust APIs, and interactive user experiences across Web2 and Web3 with user flows that feel fast and clear on every device.',
+            roleLine: 'Software Engineer | Web Developer',
+            heroDescription: 'I build secure, high-performance web applications, robust APIs, and interactive user experiences across Web2 and Web3, utilizing Solidity for smart contract integrations and AI prompt workflows to optimize delivery.',
             aboutParagraphs: [
                 'I am Ibrahim Sobur Bamidele, a software engineer from Ekiti State, Nigeria. I lived in Akure and currently study in Dutse while building useful systems across Web2 and Web3.',
-                'I focus on shipping practical products where backend logic, frontend clarity, and blockchain workflows connect cleanly. Every build targets reliability first, then scale.',
+                'I focus on shipping practical products where backend logic, frontend clarity, smart contracts, and AI prompt workflows connect cleanly. Every build targets reliability first, then scale.',
                 'Outside core development, I mentor peers and lead teams in hackathons and community technical spaces.'
             ],
             stats: [
@@ -316,7 +316,7 @@
                 id: 'exp-kindlepath',
                 role: 'Software Developer',
                 company: 'KindlePath Initiative',
-                duration: '2024',
+                duration: '2026 - Present',
                 bullets: [
                     'Developed and maintained modern, highly responsive web applications.',
                     'Collaborated with cross-functional teams to build custom software projects.',
@@ -327,7 +327,7 @@
                 id: 'exp-northdemy',
                 role: 'SIWES Intern (Software Development)',
                 company: 'Northdemy Limited',
-                duration: '2025 - Present',
+                duration: '2026 - Present',
                 bullets: [
                     'Currently undergoing intensive industrial software engineering training.',
                     'Actively contributing to full-stack software development pipelines.',
@@ -338,7 +338,7 @@
                 id: 'exp-drips-grantfox',
                 role: 'Open Source Contributor',
                 company: 'Drips & Grantfox',
-                duration: '2023 - Present',
+                duration: '2025 - Present',
                 bullets: [
                     'Contributed to decentralized funding protocols and ecosystem infrastructure tools.',
                     'Collaborated with global developer communities on code reviews, features, and optimization.'
@@ -426,7 +426,33 @@
         const base = deepClone(DEFAULT_CONTENT);
         const data = raw && typeof raw === 'object' ? raw : {};
 
+        const mergeListById = (cachedList, defaultList) => {
+            const list = [...ensureArray(cachedList)];
+            const ids = new Set(list.map(item => item.id).filter(Boolean));
+            defaultList.forEach(item => {
+                if (!ids.has(item.id)) {
+                    list.push(item);
+                } else {
+                    const index = list.findIndex(c => c.id === item.id);
+                    if (index !== -1) {
+                        list[index] = { ...item, ...list[index] };
+                        if (!list[index].imageUrl || list[index].imageUrl.includes('placeholder')) {
+                            list[index].imageUrl = item.imageUrl;
+                        }
+                    }
+                }
+            });
+            return list;
+        };
+
         const profile = data.profile && typeof data.profile === 'object' ? data.profile : {};
+
+        if (profile.roleLine && (profile.roleLine.includes('AI Prompt') || profile.roleLine.includes('Web3 Solidity'))) {
+            profile.roleLine = DEFAULT_CONTENT.profile.roleLine;
+        }
+        if (profile.heroDescription && (profile.heroDescription.includes('practical blockchain') || !profile.heroDescription.includes('Solidity for smart'))) {
+            profile.heroDescription = DEFAULT_CONTENT.profile.heroDescription;
+        }
         const useCustomAbout = Array.isArray(profile.aboutParagraphs);
         const useCustomStats = Array.isArray(profile.stats);
 
@@ -474,7 +500,7 @@
             : deepClone(DEFAULT_CONTENT.availability);
 
         base.projects = Array.isArray(data.projects)
-            ? sanitizeProjects(data.projects).map((project) => {
+            ? sanitizeProjects(mergeListById(data.projects, DEFAULT_CONTENT.projects)).map((project) => {
                 const canonicalKey = getCanonicalProjectKey(project);
                 const id = canonicalKey || project.id || buildId('project');
                 const imageUrl = project.imageUrl || '';
@@ -497,7 +523,7 @@
             : sanitizeProjects(deepClone(DEFAULT_CONTENT.projects));
 
         base.achievements = Array.isArray(data.achievements)
-            ? ensureArray(data.achievements).map((item) => ({
+            ? mergeListById(data.achievements, DEFAULT_CONTENT.achievements).map((item) => ({
                 id: item.id || buildId('achievement'),
                 title: item.title || 'Untitled Achievement',
                 description: item.description || ''
@@ -505,7 +531,7 @@
             : deepClone(DEFAULT_CONTENT.achievements);
 
         base.education = Array.isArray(data.education)
-            ? ensureArray(data.education).map((item) => ({
+            ? mergeListById(data.education, DEFAULT_CONTENT.education).map((item) => ({
                 id: item.id || buildId('education'),
                 icon: item.icon || 'fas fa-graduation-cap',
                 title: item.title || 'Untitled Training',
@@ -515,7 +541,7 @@
             : deepClone(DEFAULT_CONTENT.education);
 
         base.experience = Array.isArray(data.experience)
-            ? ensureArray(data.experience).map((item) => ({
+            ? mergeListById(data.experience, DEFAULT_CONTENT.experience).map((item) => ({
                 id: item.id || buildId('experience'),
                 role: item.role || '',
                 company: item.company || '',
