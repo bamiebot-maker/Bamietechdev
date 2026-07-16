@@ -1277,6 +1277,19 @@ body {
     border-left: 2px solid var(--line);
 }
 
+/* Achievements Timeline Styles */
+.achievement-timeline {
+    position: relative;
+    max-width: 800px;
+    margin: 2rem auto 0;
+    padding-left: 2rem;
+    border-left: 2px solid var(--line);
+}
+
+.achievement-timeline .timeline-item::before {
+    background: var(--accent-ok);
+}
+
 .timeline-item {
     position: relative;
     margin-bottom: 3rem;

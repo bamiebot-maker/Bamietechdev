@@ -746,16 +746,16 @@ function createTimelineRow(label, description, statusClass) {
 }
 
 function renderAchievements(achievements) {
-    const achievementGrid = document.getElementById('achievement-grid');
-    if (!achievementGrid) {
+    const timeline = document.getElementById('achievement-timeline');
+    if (!timeline) {
         return;
     }
 
-    achievementGrid.textContent = '';
+    timeline.textContent = '';
     clearSectionToggle('achievements-toggle-row');
 
     if (!achievements.length) {
-        achievementGrid.append(createEmptyState('No achievements yet. Add one from the admin panel.'));
+        timeline.append(createEmptyState('No achievements yet. Add one from the admin panel.'));
         return;
     }
 
@@ -764,20 +764,33 @@ function renderAchievements(achievements) {
         ? achievements
         : achievements.slice(0, previewCount);
 
-    visibleAchievements.forEach((achievement) => {
-        const card = document.createElement('article');
-        card.className = 'achievement-card';
-        card.setAttribute('data-reveal', '');
-        card.classList.add('is-visible');
+    visibleAchievements.forEach((item) => {
+        const timelineItem = document.createElement('article');
+        timelineItem.className = 'timeline-item';
+        timelineItem.setAttribute('data-reveal', '');
+        timelineItem.classList.add('is-visible');
+
+        const head = document.createElement('div');
+        head.className = 'timeline-item-head';
 
         const title = document.createElement('h3');
-        title.textContent = achievement.title || 'Untitled Achievement';
+        title.className = 'timeline-item-title';
+        title.textContent = item.title || 'Untitled Achievement';
+
+        head.append(title);
 
         const description = document.createElement('p');
-        description.textContent = achievement.description || '';
+        description.className = 'timeline-item-description';
+        description.textContent = item.description || '';
+        description.style.cssText = `
+            font-size: 0.95rem;
+            color: var(--ink-soft);
+            margin-top: 0.45rem;
+            line-height: 1.5;
+        `;
 
-        card.append(title, description);
-        achievementGrid.append(card);
+        timelineItem.append(head, description);
+        timeline.append(timelineItem);
     });
 
     if (achievements.length > previewCount) {
@@ -790,7 +803,7 @@ function renderAchievements(achievements) {
                 renderAchievements(achievements);
             }
         });
-        achievementGrid.after(toggleRow);
+        timeline.after(toggleRow);
     }
 }
 
