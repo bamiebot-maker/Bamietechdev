@@ -1588,6 +1588,36 @@ body {
         padding: 4.25rem 0;
     }
 
+    body {
+        font-size: 0.88rem;
+    }
+
+    .section-title {
+        font-size: 1.75rem;
+    }
+
+    .section-kicker {
+        font-size: 0.76rem;
+    }
+
+    .about-card h3,
+    .fact-card h4,
+    .skill-card h3,
+    .achievement-card h3,
+    .education-card h3,
+    .timeline-item-title {
+        font-size: 1.1rem;
+    }
+
+    .about-card p,
+    .fact-card p,
+    .skill-card p,
+    .achievement-card p,
+    .education-card p,
+    .timeline-item-bullets li {
+        font-size: 0.82rem;
+    }
+
     .hero-title {
         font-size: clamp(2.05rem, 11vw, 2.8rem);
     }

@@ -768,6 +768,7 @@ function renderAchievements(achievements) {
         const card = document.createElement('article');
         card.className = 'achievement-card';
         card.setAttribute('data-reveal', '');
+        card.classList.add('is-visible');
 
         const title = document.createElement('h3');
         title.textContent = achievement.title || 'Untitled Achievement';
@@ -816,6 +817,7 @@ function renderEducation(educationItems) {
         const card = document.createElement('article');
         card.className = 'education-card';
         card.setAttribute('data-reveal', '');
+        card.classList.add('is-visible');
 
         const icon = document.createElement('i');
         icon.className = item.icon || 'fas fa-graduation-cap';
