@@ -1290,6 +1290,86 @@ body {
     background: var(--accent-ok);
 }
 
+/* Skills Timeline Styles */
+.skills-timeline {
+    position: relative;
+    max-width: 800px;
+    margin: 2rem auto 0;
+    padding-left: 2.5rem;
+    border-left: 2px solid var(--line);
+}
+
+.skills-timeline-item {
+    position: relative;
+    margin-bottom: 2.5rem;
+}
+
+.skills-timeline-item:last-child {
+    margin-bottom: 0;
+}
+
+.skills-timeline-node {
+    position: absolute;
+    left: -3.5rem;
+    top: 0.15rem;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: var(--surface-solid);
+    border: 2px solid var(--accent);
+    box-shadow: 0 0 0 3px var(--bg-base);
+    display: grid;
+    place-items: center;
+    color: var(--accent-deep);
+    font-size: 0.85rem;
+}
+
+.skills-timeline-content {
+    background: var(--surface);
+    border: 1px solid rgba(255, 255, 255, 0.78);
+    border-radius: var(--radius-md);
+    padding: 1.2rem 1.4rem;
+    box-shadow: var(--shadow-soft);
+    transition: var(--transition);
+}
+
+.skills-timeline-content:hover {
+    transform: translateY(-2px);
+    border-color: var(--accent);
+    box-shadow: var(--shadow-strong);
+}
+
+.skills-timeline-content h3 {
+    font-family: 'Chakra Petch', sans-serif;
+    font-size: 1.15rem;
+    color: var(--ink);
+    margin-bottom: 0.8rem;
+}
+
+.skills-timeline-content .skill-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+.skills-timeline-content .tag {
+    background: rgba(0, 200, 255, 0.08);
+    border: 1px solid rgba(0, 200, 255, 0.25);
+    color: var(--accent-deep);
+    padding: 0.35rem 0.7rem;
+    border-radius: 999px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    transition: var(--transition);
+}
+
+.skills-timeline-content .tag:hover {
+    background: var(--accent);
+    color: #04324a;
+    border-color: var(--accent);
+    transform: translateY(-1px);
+}
+
 .timeline-item {
     position: relative;
     margin-bottom: 3rem;
@@ -1359,6 +1439,68 @@ body {
     left: 0;
     color: var(--accent-alt);
     font-weight: bold;
+}
+
+/* GitHub Stats Styles */
+.github-stats {
+    background: var(--surface);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: var(--radius-md);
+    padding: 1.5rem 2rem;
+    margin-top: 2rem;
+    box-shadow: var(--shadow-soft);
+}
+
+.github-stats h3 {
+    font-family: 'Chakra Petch', sans-serif;
+    font-size: 1.25rem;
+    color: var(--ink);
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.github-stats-container {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    align-items: center;
+}
+
+.github-chart-img {
+    width: 100%;
+    max-width: 780px;
+    height: auto;
+    filter: drop-shadow(0 2px 8px rgba(0, 200, 255, 0.15));
+    border-radius: var(--radius-sm);
+    padding: 0.8rem;
+    background: rgba(0, 0, 0, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.github-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+    width: 100%;
+}
+
+.github-stats-card,
+.github-langs-card {
+    width: 100%;
+    height: auto;
+    background: rgba(0, 0, 0, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: var(--radius-md);
+    padding: 0.5rem;
+    transition: var(--transition);
+}
+
+.github-stats-card:hover,
+.github-langs-card:hover {
+    border-color: var(--accent);
+    transform: translateY(-2px);
 }
 
 @media (max-width: 1100px) {
@@ -1605,6 +1747,21 @@ body {
         font-size: 0.88rem;
     }
 
+    .skills-timeline {
+        padding-left: 2rem;
+    }
+    
+    .skills-timeline-node {
+        left: -2.8rem;
+        width: 26px;
+        height: 26px;
+        font-size: 0.72rem;
+    }
+    
+    .skills-timeline-content {
+        padding: 0.95rem 1.15rem;
+    }
+
     .section-title {
         font-size: 1.75rem;
     }
@@ -1783,6 +1940,10 @@ body {
 
     .back-to-top {
         left: 0.85rem;
+    }
+
+    .github-stats {
+        padding: 1.2rem 1.4rem;
     }
 }
 
