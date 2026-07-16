@@ -445,6 +445,9 @@
         };
 
         const contact = data.contact && typeof data.contact === 'object' ? data.contact : {};
+        if (contact.resumeUrl === 'assets/Ibrahim_Bamidele_Resume.pdf') {
+            contact.resumeUrl = 'assets/Ibrahim_Sobur_Bamidele_Resume.pdf';
+        }
         base.contact = {
             ...base.contact,
             ...contact,
